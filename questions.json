@@ -1,0 +1,26 @@
+[
+  {
+    "exam": "DABNM",
+    "topic": "Basic Neuroscience",
+    "question": "Ependymal cells primarily line?",
+    "options": ["Blood vessels", "Ventricles", "Synapses", "Axons"],
+    "correct": "B",
+    "explanation": "Ependymal cells line the ventricles and central canal, aiding in CSF circulation."
+  },
+  {
+    "exam": "DABNM",
+    "topic": "Sensory Evoked Potentials",
+    "question": "The ascending fibers of the cuneate nucleus and gracilis nucleus cross over in the medulla to form what structure?",
+    "options": ["Internal capsule", "Lateral lemniscus", "Medial lemniscus", "Superior colliculus"],
+    "correct": "C",
+    "explanation": "The medial lemniscus is formed by decussating fibers from gracilis and cuneate nuclei."
+  },
+  {
+    "exam": "CNIM",
+    "topic": "Motor Potentials",
+    "question": "What is a common contraindication for MEP monitoring?",
+    "options": ["Hypertension", "Epilepsy history", "Diabetes", "Asthma"],
+    "correct": "B",
+    "explanation": "MEPs are contraindicated in patients with epilepsy due to risk of seizure induction from transcranial stimulation."
+  }
+]
