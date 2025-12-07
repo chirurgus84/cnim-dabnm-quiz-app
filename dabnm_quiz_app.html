@@ -1,0 +1,225 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DABNM Practice Quiz App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+    <div class="container mx-auto p-4">
+        <h1 class="text-3xl font-bold text-center mb-6">DABNM Written Exam Practice Quiz App</h1>
+
+        <!-- Home Section: Topic Selection -->
+        <div id="home" class="space-y-6">
+            <h2 class="text-2xl font-semibold mb-4">Select Topics for Quiz (100 Questions)</h2>
+            <p class="text-gray-600">Select all for ABNM exam ratio. Custom selections distribute evenly.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <label class="flex items-center">
+                    <input type="checkbox" class="topic-checkbox mr-2" value="Basic Neuroscience"> Basic Neuroscience (27.6%)
+                </label>
+                <label class="flex items-center">
+                    <input type="checkbox" class="topic-checkbox mr-2" value="Signal Acquisition and Processing"> Signal Acquisition and Processing (4.8%)
+                </label>
+                <label class="flex items-center">
+                    <input type="checkbox" class="topic-checkbox mr-2" value="Electroencephalography (EEG)"> Electroencephalography (EEG) (9.6%)
+                </label>
+                <label class="flex items-center">
+                    <input type="checkbox" class="topic-checkbox mr-2" value="Sensory Evoked Potentials"> Sensory Evoked Potentials (23.6%)
+                </label>
+                <label class="flex items-center">
+                    <input type="checkbox" class="topic-checkbox mr-2" value="Motor Potentials"> Motor Potentials (24.4%)
+                </label>
+                <label class="flex items-center">
+                    <input type="checkbox" class="topic-checkbox mr-2" value="Effects of Anesthesia"> Effects of Anesthesia (10%)
+                </label>
+            </div>
+            <div class="text-center">
+                <button id="generateQuiz" class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600">Generate Quiz</button>
+                <button id="viewProgress" class="bg-purple-500 text-white px-6 py-2 rounded-lg hover:bg-purple-600 ml-4">View Progress Dashboard</button>
+            </div>
+        </div>
+
+        <!-- Quiz Section -->
+        <div id="quizSection" class="space-y-6 hidden">
+            <h2 class="text-2xl font-semibold mb-4">Quiz ID: <span id="quizID"></span></h2>
+            <div id="quiz" class="space-y-6"></div>
+            <div class="text-center">
+                <button id="submitQuiz" class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 hidden">Submit Quiz</button>
+            </div>
+        </div>
+
+        <!-- Progress Dashboard Section -->
+        <div id="progressDashboard" class="space-y-6 hidden">
+            <h2 class="text-2xl font-semibold mb-4">Progress Dashboard</h2>
+            <canvas id="progressChart" class="mb-4"></canvas>
+            <div class="text-center">
+                <button id="backToHome" class="bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600">Back to Home</button>
+            </div>
+        </div>
+
+        <!-- Results Modal -->
+        <div id="resultsModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+            <div class="bg-white p-6 rounded-lg shadow-lg w-11/12 max-w-2xl">
+                <h2 class="text-2xl font-bold mb-4 text-center">Quiz Results (ID: <span id="modalQuizID"></span>)</h2>
+                <canvas id="resultsChart" class="mb-4"></canvas>
+                <div class="text-center">
+                    <button id="newQuiz" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">Take Another Quiz</button>
+                    <button id="closeModal" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 ml-2">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Question Bank (expand to 3000 by adding more objects; current ~200 from sources)
+        const questionBank = [
+            // Basic Neuroscience (aim for ~840 in full bank)
+            { topic: "Basic Neuroscience", question: "The ascending fibers of the cuneate nucleus and gracilis nucleus cross over in the medulla to form what structure?", options: ["Internal capsule", "Lateral lemniscus", "Medial lemniscus", "Superior colliculus"], correct: "C", explanation: "The medial lemniscus is formed by decussating fibers from gracilis and cuneate nuclei." },
+            { topic: "Basic Neuroscience", question: "Which artery supplies blood to the hands and face area of the somatosensory cortex?", options: ["Anterior Cerebral Artery", "Middle Cerebral Artery", "Posterior Cerebral Artery", "Basilar Artery"], correct: "B", explanation: "Middle Cerebral Artery supplies the lateral cortex including somatosensory areas for hands and face." },
+            { topic: "Basic Neuroscience", question: "Which blood vessel supply descending motor fibers?", options: ["Posterior Spinal Artery", "Anterior Spinal Artery", "Vertebral Artery", "Carotid Artery"], correct: "B", explanation: "Anterior Spinal Artery supplies the corticospinal tract." },
+            { topic: "Basic Neuroscience", question: "A vertebral body that is displaced anteriorly over the vertebral body inferior to it is called?", options: ["Spondylolisthesis", "Scoliosis", "Kyphosis", "Lordosis"], correct: "A", explanation: "Spondylolisthe...(truncated 9177 characters)...quizSize = 100;
+            currentQuestions = [];
+
+            const topicQuestions = selectedTopics.reduce((acc, t) => ({ ...acc, [t]: shuffle(questionBank.filter(q => q.topic === t)) }), {});
+            if (isAllSelected) {
+                topics.forEach(t => {
+                    const num = Math.round(quizSize * t.ratio);
+                    currentQuestions.push(...topicQuestions[t.name].slice(0, num));
+                });
+            } else {
+                const numPerTopic = Math.floor(quizSize / selectedTopics.length);
+                selectedTopics.forEach(t => {
+                    currentQuestions.push(...topicQuestions[t].slice(0, numPerTopic));
+                });
+                // Add remaining to fill 100
+                let remaining = quizSize - currentQuestions.length;
+                selectedTopics.forEach(t => {
+                    if (remaining > 0 && topicQuestions[t].length > numPerTopic) {
+                        currentQuestions.push(topicQuestions[t][numPerTopic]);
+                        remaining--;
+                    }
+                });
+            }
+
+            currentQuestions = shuffle(currentQuestions.slice(0, quizSize));
+            const quizID = Date.now();
+            document.getElementById('quizID').textContent = quizID;
+            document.getElementById('modalQuizID').textContent = quizID;
+
+            renderQuiz();
+            homeSection.classList.add('hidden');
+            quizSection.classList.remove('hidden');
+        }
+
+        function renderQuiz() {
+            quizContainer.innerHTML = '';
+            currentQuestions.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'bg-white p-4 rounded-lg shadow-md';
+                questionDiv.innerHTML = `
+                    <h2 class="text-xl font-semibold mb-2">${index + 1}. ${q.question}</h2>
+                    <div class="space-y-2">
+                        ${q.options.map((option, i) => `
+                            <label class="flex items-center">
+                                <input type="radio" name="q${index}" value="${String.fromCharCode(65 + i)}" class="mr-2" onchange="selectAnswer(${index}, '${String.fromCharCode(65 + i)}', this)">
+                                ${String.fromCharCode(65 + i)}) ${option}
+                            </label>
+                        `).join('')}
+                    </div>
+                    <div id="feedback${index}" class="mt-4 hidden">
+                        <p class="font-bold">Correct Answer: ${q.correct}</p>
+                        <p>Explanation: ${q.explanation}</p>
+                    </div>
+                `;
+                quizContainer.appendChild(questionDiv);
+            });
+            updateSubmitButton();
+        }
+
+        function selectAnswer(questionIndex, answer, radioInput) {
+            userAnswers[questionIndex] = answer;
+            const feedbackDiv = document.getElementById(`feedback${questionIndex}`);
+            feedbackDiv.classList.remove('hidden');
+            const isCorrect = answer === currentQuestions[questionIndex].correct;
+            feedbackDiv.querySelector('p').className = isCorrect ? 'text-green-600 font-bold' : 'text-red-600 font-bold';
+            document.querySelectorAll(`input[name="q${questionIndex}"]`).forEach(input => {
+                if (input !== radioInput) input.disabled = true;
+            });
+            updateSubmitButton();
+        }
+
+        function updateSubmitButton() {
+            if (!userAnswers.includes(null)) submitButton.classList.remove('hidden');
+        }
+
+        function submitQuiz() {
+            const scores = {
+                'Basic Neuroscience': { correct: 0, total: 28 },
+                'Signal Acquisition and Processing': { correct: 0, total: 5 },
+                'Electroencephalography (EEG)': { correct: 0, total: 10 },
+                'Sensory Evoked Potentials': { correct: 0, total: 24 },
+                'Motor Potentials': { correct: 0, total: 24 },
+                'Effects of Anesthesia': { correct: 0, total: 9 }
+            };
+            let totalCorrect = 0;
+            currentQuestions.forEach((q, i) => {
+                if (userAnswers[i] === q.correct) {
+                    scores[q.topic].correct++;
+                    totalCorrect++;
+                }
+            });
+            let message = '';
+            for (let topic in scores) {
+                let pctCorrect = ((scores[topic].correct / scores[topic].total) * 100).toFixed(2);
+                let pctIncorrect = (100 - pctCorrect).toFixed(2);
+                message += `${topic}:\nCorrect: ${pctCorrect}%\nIncorrect: ${pctIncorrect}%\n\n`;
+            }
+            message += `Total:\nCorrect: ${(totalCorrect / 100 * 100).toFixed(2)}%\nIncorrect: ${(100 - (totalCorrect / 100 * 100)).toFixed(2)}%`;
+            alert(message);
+        }
+
+        renderQuiz();
+    </script>
+</body>
+</html>

@@ -1,0 +1,313 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DABNM Practice Quiz App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+    <div class="container mx-auto p-4">
+        <h1 class="text-3xl font-bold text-center mb-6">DABNM Written Exam Practice Quiz App</h1>
+
+        <!-- Home Section: Topic Selection and Options -->
+        <div id="home" class="space-y-6">
+            <h2 class="text-2xl font-semibold mb-4">Customize Your Quiz</h2>
+            <p class="text-gray-600">Select topics, number of questions, and mode. Full Exam Mode: 100 questions, all topics, timed (120 minutes).</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <label class="flex items-center">
+                    <input type="checkbox" class="topic-checkbox mr-2" value="Basic Neuroscience"> Basic Neuroscience (27.6%)
+                </label>
+                <label class="flex items-center">
+                    <input type="checkbox" class="topic-checkbox mr-2" value="Signal Acquisition and Processing"> Signal Acquisition and Processing (4.8%)
+                </label>
+                <label class="flex items-center">
+                    <input type="checkbox" class="topic-checkbox mr-2" value="Electroencephalography (EEG)"> Electroencephalography (EEG) (9.6%)
+                </label>
+                <label class="flex items-center">
+                    <input type="checkbox" class="topic-checkbox mr-2" value="Sensory Evoked Potentials"> Sensory Evoked Potentials (23.6%)
+                </label>
+                <label class="flex items-center">
+                    <input type="checkbox" class="topic-checkbox mr-2" value="Motor Potentials"> Motor Potentials (24.4%)
+                </label>
+                <label class="flex items-center">
+                    <input type="checkbox" class="topic-checkbox mr-2" value="Effects of Anesthesia"> Effects of Anesthesia (10%)
+                </label>
+            </div>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-gray-700">Number of Questions:</label>
+                    <input id="numQuestions" type="number" min="1" max="3000" value="100" class="border rounded p-2 w-full">
+                </div>
+                <div>
+                    <label class="block text-gray-700">Timing Mode:</label>
+                    <label class="flex items-center">
+                        <input type="radio" name="timing" value="untimed" checked class="mr-2"> Untimed
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="timing" value="timed" class="mr-2"> Timed (2 minutes per question)
+                    </label>
+                </div>
+                <div class="flex items-center">
+                    <input type="checkbox" id="fullExamMode" class="mr-2">
+                    <label for="fullExamMode">Full Exam Mode (100 questions, timed 120 min, all topics)</label>
+                </div>
+            </div>
+            <div class="text-center">
+                <button id="generateQuiz" class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600">Generate Quiz</button>
+                <button id="viewProgress" class="bg-purple-500 text-white px-6 py-2 rounded-lg hover:bg-purple-600 ml-4">View Progress Dashboard</button>
+            </div>
+        </div>
+
+        <!-- Quiz Section -->
+        <div id="quizSection" class="space-y-6 hidden">
+            <h2 class="text-2xl font-semibold mb-4">Quiz ID: <span id="quizID"></span></h2>
+            <div id="timer" class="text-lg font-bold text-red-600 text-center hidden">Time Remaining: <span id="timeRemaining"></span></div>
+            <div id="quiz" class="space-y-6"></div>
+            <div class="text-center">
+                <button id="submitQuiz" class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 hidden">Submit Quiz</button>
+            </div>
+        </div>
+
+        <!-- Progress Dashboard Section -->
+        <div id="progressDashboard" class="space-y-6 hidden">
+            <h2 class="text-2xl font-semibold mb-4">Progress Dashboard</h2>
+            <canvas id="progressChart" class="mb-4"></canvas>
+            <div class="text-center">
+                <button id="backToHome" class="bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600">Back to Home</button>
+            </div>
+        </div>
+
+        <!-- Results Modal -->
+        <div id="resultsModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+            <div class="bg-white p-6 rounded-lg shadow-lg w-11/12 max-w-2xl">
+                <h2 class="text-2xl font-bold mb-4 text-center">Quiz Results (ID: <span id="modalQuizID"></span>)</h2>
+                <canvas id="resultsChart" class="mb-4"></canvas>
+                <div class="text-center">
+                    <button id="newQuiz" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">Take Another Quiz</button>
+                    <button id="closeModal" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 ml-2">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Question Bank (expand to 3000 as needed)
+        const questionBank = [
+            // ... (same as previous, add more questions to reach 3000)
+        ];
+
+        // Topics with ratios
+        const topics = [
+            { name: "Basic Neuroscience", ratio: 0.276 },
+            { name: "Signal Acquisition and Processing", ratio: 0.048 },
+            { name: "Electroencephalography (EEG)", ratio: 0.096 },
+            { name: "Sensory Evoked ...(truncated 3542 characters)... numPerTopic) {
+                        currentQuestions.push(topicQuestions[t][numPerTopic + (topicQuestions[t].length - numPerTopic > 0 ? 0 : 0)]);
+                        remaining--;
+                    }
+                    idx++;
+                }
+            }
+
+            currentQuestions = shuffle(currentQuestions.slice(0, quizSize));
+            const quizID = Date.now();
+            document.getElementById('quizID').textContent = quizID;
+            document.getElementById('modalQuizID').textContent = quizID;
+
+            renderQuiz();
+
+            if (timingMode === 'timed' || fullExamMode) {
+                const timePerQuestion = 2; // 2 min per question
+                timeRemaining = (fullExamMode ? 120 : quizSize * timePerQuestion) * 60; // seconds
+                timerDisplay.classList.remove('hidden');
+                startTimer();
+            } else {
+                timerDisplay.classList.add('hidden');
+            }
+
+            homeSection.classList.add('hidden');
+            quizSection.classList.remove('hidden');
+        }
+
+        function startTimer() {
+            updateTimerDisplay();
+            timerInterval = setInterval(() => {
+                timeRemaining--;
+                updateTimerDisplay();
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    submitQuiz();
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeRemaining / 60);
+            const seconds = timeRemaining % 60;
+            timeRemainingSpan.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        }
+
+        function renderQuiz() {
+            quizContainer.innerHTML = '';
+            currentQuestions.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'bg-white p-4 rounded-lg shadow-md';
+                questionDiv.innerHTML = `
+                    <h2 class="text-xl font-semibold mb-2">${index + 1}. ${q.question}</h2>
+                    <div class="space-y-2">
+                        ${q.options.map((option, i) => `
+                            <label class="flex items-center">
+                                <input type="radio" name="q${index}" value="${String.fromCharCode(65 + i)}" class="mr-2" onchange="selectAnswer(${index}, '${String.fromCharCode(65 + i)}', this)">
+                                ${String.fromCharCode(65 + i)}) ${option}
+                            </label>
+                        `).join('')}
+                    </div>
+                    <div id="feedback${index}" class="mt-4 hidden">
+                        <p class="font-bold">Correct Answer: ${q.correct}</p>
+                        <p>Explanation: ${q.explanation}</p>
+                    </div>
+                `;
+                quizContainer.appendChild(questionDiv);
+            });
+            updateSubmitButton();
+        }
+
+        function selectAnswer(questionIndex, answer, radioInput) {
+            userAnswers[questionIndex] = answer;
+            const feedbackDiv = document.getElementById(`feedback${questionIndex}`);
+            feedbackDiv.classList.remove('hidden');
+            const isCorrect = answer === currentQuestions[questionIndex].correct;
+            feedbackDiv.querySelector('p').className = isCorrect ? 'text-green-600 font-bold' : 'text-red-600 font-bold';
+            document.querySelectorAll(`input[name="q${questionIndex}"]`).forEach(input => {
+                if (input !== radioInput) input.disabled = true;
+            });
+            updateSubmitButton();
+        }
+
+        function updateSubmitButton() {
+            if (!userAnswers.includes(null)) submitButton.classList.remove('hidden');
+        }
+
+        function submitQuiz() {
+            if (timerInterval) clearInterval(timerInterval);
+            const scores = topics.reduce((acc, t) => ({ ...acc, [t.name]: { correct: 0, total: 0 } }), {});
+            let totalCorrect = 0;
+            currentQuestions.forEach((q, i) => {
+                scores[q.topic].total++;
+                progress[q.topic].total++;
+                if (userAnswers[i] === q.correct) {
+                    scores[q.topic].correct++;
+                    progress[q.topic].correct++;
+                    totalCorrect++;
+                }
+            });
+            localStorage.setItem('dabnmProgress', JSON.stringify(progress));
+
+            // Prepare chart data for results
+            const labels = ['Total', ...topics.map(t => t.name)];
+            const correctPercentages = [
+                (totalCorrect / currentQuestions.length * 100).toFixed(2),
+                ...topics.map(t => (scores[t.name].total > 0 ? (scores[t.name].correct / scores[t.name].total * 100).toFixed(2) : 0))
+            ];
+            const incorrectPercentages = correctPercentages.map(p => (100 - p).toFixed(2));
+
+            const ctx = document.getElementById('resultsChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        { label: 'Correct (%)', data: correctPercentages, backgroundColor: 'rgba(34, 197, 94, 0.6)', borderColor: 'rgba(34, 197, 94, 1)', borderWidth: 1 },
+                        { label: 'Incorrect (%)', data: incorrectPercentages, backgroundColor: 'rgba(239, 68, 68, 0.6)', borderColor: 'rgba(239, 68, 68, 1)', borderWidth: 1 }
+                    ]
+                },
+                options: { scales: { y: { beginAtZero: true, max: 100 } } }
+            });
+
+            resultsModal.classList.remove('hidden');
+        }
+
+        function renderProgressChart() {
+            const labels = topics.map(t => t.name);
+            const correctPercentages = topics.map(t => (progress[t.name].total > 0 ? (progress[t.name].correct / progress[t.name].total * 100).toFixed(2) : 0));
+            const ctx = document.getElementById('progressChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{ label: 'Correct (%)', data: correctPercentages, backgroundColor: 'rgba(34, 197, 94, 0.6)', borderColor: 'rgba(34, 197, 94, 1)', borderWidth: 1 }]
+                },
+                options: { scales: { y: { beginAtZero: true, max: 100 } } }
+            });
+        }
+
+        // Event Listeners
+        generateQuizButton.addEventListener('click', generateQuiz);
+        viewProgressButton.addEventListener('click', () => {
+            homeSection.classList.add('hidden');
+            progressDashboard.classList.remove('hidden');
+            renderProgressChart();
+        });
+        backToHomeButton.addEventListener('click', () => {
+            progressDashboard.classList.add('hidden');
+            homeSection.classList.remove('hidden');
+        });
+        closeModalButton.addEventListener('click', () => {
+            resultsModal.classList.add('hidden');
+            // Clear chart
+            const ctx = document.getElementById('resultsChart').getContext('2d');
+            ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        });
+        newQuizButton.addEventListener('click', () => {
+            resultsModal.classList.add('hidden');
+            quizSection.classList.add('hidden');
+            homeSection.classList.remove('hidden');
+            submitButton.classList.add('hidden');
+            // Clear chart
+            const ctx = document.getElementById('resultsChart').getContext('2d');
+            ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        });
+    </script>
+</body>
+</html>

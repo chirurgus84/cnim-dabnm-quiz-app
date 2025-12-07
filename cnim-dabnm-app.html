@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CNIM/DABNM Study App - UWorld Style</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f7fa; margin: 0; padding: 0; }
+        .app { display: flex; height: 100vh; }
+        .sidebar { width: 250px; background: #001f3f; color: white; padding: 20px; }
+        .sidebar button { background: #007bff; color: white; border: none; padding: 10px; margin: 5px 0; cursor: pointer; width: 100%; }
+        .main { flex: 1; padding: 20px; }
+        .quiz-player { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        progress { width: 100%; height: 10px; }
+        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; justify-content: center; align-items: center; }
+        .modal-content { background: white; padding: 20px; border-radius: 8px; max-width: 600px; width: 90%; }
+        .modal.show { display: flex; }
+        label { display: block; margin: 5px 0; }
+        .topics-grid { display: grid; grid-template-columns: repeat(2, 1fr); }
+        pre { background: #f0f0f0; padding: 10px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <div class="sidebar">
+            <h2>CNIM/DABNM App</h2>
+            <button onclick="setExam('cnim')">CNIM Mode</button>
+            <button onclick="setExam('dabnm')">DABNM Mode</button>
+            <button onclick="showModal('setup')">Generate Quiz</button>
+            <button onclick="showProgress()">View Progress</button>
+        </div>
+        <div class="main" id="main-content">
+            <h1 id="welcome">Welcome! Select an exam mode and generate a quiz.</h1>
+            <div id="quiz-player" class="quiz-player" style="display:none;"></div>
+            <div id="progress-view" style="display:none;"></div>
+        </div>
+    </div>
+
+    <!-- Setup Modal -->
+    <div id="setup-modal" class="modal">
+        <div class="modal-content">
+            <h2>Generate Quiz</h2>
+            <label>Number of Questions:
+                <select id="num-q">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                    <option value="250">250</option>
+                </select>
+            </label>
+            <label><input type="checkbox" id="timed"> Timed (58 sec/Q)</label>
+            <fieldset>
+                <legend>Topics (select or mixed)</legend>
+                <div class="topics-grid" id="topics-checkboxes"></div>
+                <label><input type="checkbox" id="mixed"> Mixed (all or selected)</label>
+            </fieldset>
+            <label>Difficulty: <select id="difficulty"><option>Regular (50%)</option><option>Difficult (30%)</option><option>Very Difficult (20%)</option></select></label>
+            <button onclick="startQuiz()">Start</button>
+            <button onclick="hideModal('setup')">Cancel</button>
+        </div>
+    </div>
+
+    <!-- Report Modal -->
+    <div id="report-modal" class="modal">
+        <div class="modal-content">
+            <h2>Quiz Report</h2>
+            <p id="score"></p>
+            <p id="topic-breakdown"></p>
+            <pre id="pie-ascii"></pre>
+            <button onclick="showExplanations()">View Wrong Explanations</button>
+            <button onclick="hideModal('report')">Close</button>
+        </div>
+    </div>
+
+    <!-- Explanations Modal -->
+    <div id="expl-modal" class="modal">
+        <div class="modal-content">
+            <h2>Wrong Answers Explanations</h2>
+            <div id="expl-list"></div>
+            <button onclick="hideModal('expl')">Close</button>
+        </div>
+    </div>
+
+    <script>
+        let exam = null;
+        const TOPICS = {
+            cnim: {'I': 'Pre-Operative / Fundamentals', 'II': 'Intraoperative', 'III': 'Post-Operative', 'IV': 'Communication / Documentation', 'V': 'Safety / Ethics'},
+            dabnm: {'I': 'Basic Neuroscience', 'II': 'Signal Acquisition and Processing', 'III': 'Electroencephalography (EEG)', 'IV': 'Sensory Evoked Potentials', 'V': 'Motor Potentials', 'VI': 'Effects of Anesthesia'}
+        };
+        const RATIOS = { cnim: {I: 0.25, II: 0.25, III: 0.13, IV: 0.27, V: 0.1}, dabnm: {I: 0.276, II: 0.048, III: 0.096, IV: 0.236, V: 0.244, VI: 0.1} };
+        const questions = {
+            cnim: [
+                // Same questions as before; omitted for space, assume full list
+            ],
+            dabnm: [
+                // Same as before
+            ]
+        };
+        let currentQuiz = [];
+        let answers = [];
+        let currentQ = 0;
+        let progressData = JSON.parse(localStorage.getItem('progress')) || {cnim: [], dabnm: []};
+
+        function setExam(type) {
+            exam = type;
+            document.getElementById('welcome').innerText = `Current Mode: ${exam.toUpperCase()}. Generate a quiz to start.`;
+            populateTopicCheckboxes();
+        }
+
+        function populateTopicCheckboxes() {
+            if (!exam) return;
+            const grid = document.getElementById('topics-checkboxes');
+            grid.innerHTML = '';
+            Object.entries(TOPICS[exam]).forEach(([code, name]) => {
+                grid.innerHTML += `<label><input type="checkbox" value="${code}"> ${code}: ${name}</label>`;
+            });
+        }
+
+        function showModal(id) {
+            if (!exam) { alert('Select an exam mode first!'); return; }
+            document.getElementById(`${id}-modal`).classList.add('show');
+        }
+
+        function hideModal(id) {
+            document.getElementById(`${id}-modal`).classList.remove('show');
+        }
+
+        function startQuiz() {
+            // Same as before
+        }
+
+        function renderQuestion() {
+            // Same as before
+        }
+
+        function submitQuiz() {
+            // Same as before, but replace Chart with ASCII
+            const scorePct = (correct / answeredTotal) * 100;
+            document.getElementById('score').innerText = `Score: ${correct}/${answeredTotal} (${scorePct.toFixed(1)}%) (based on answered questions)`;
+            // ... breakdown
+            document.getElementById('pie-ascii').innerText = generateAsciiPie(scorePct); // New function
+            showModal('report');
+            // ... rest
+        }
+
+        function generateAsciiPie(pct) {
+            const correct = Math.round(pct / 10);
+            let pie = 'Pie Chart (Correct/Wrong):\n';
+            for (let i = 0; i < 10; i++) {
+                pie += (i < correct ? '#' : '-') + ' ';
+            }
+            pie += `\n${pct.toFixed(1)}% Correct`;
+            return pie;
+        }
+
+        function showExplanations() {
+            // Same
+        }
+
+        function showProgress() {
+            document.getElementById('quiz-player').style.display = 'none';
+            const progressView = document.getElementById('progress-view');
+            progressView.style.display = 'block';
+            progressView.innerHTML = '<h2>Progress Over Quizzes</h2><pre id="line-ascii"></pre><h3>Weak Topics ( <70% )</h3><pre id="weak-ascii"></pre><button onclick="backToDashboard()">Back to Dashboard</button>';
+            const data = progressData[exam];
+            if (data.length === 0) { progressView.innerHTML += '<p>No quizzes yet in this mode.</p>'; return; }
+            document.getElementById('line-ascii').innerText = generateAsciiLine(data);
+            document.getElementById('weak-ascii').innerText = generateAsciiWeak(data);
+        }
+
+        function generateAsciiLine(data) {
+            let line = 'Score Trend:\n';
+            data.forEach((p, i) => line += `Quiz ${i+1}: ${p.score.toFixed(1)}%\n`);
+            return line;
+        }
+
+        function generateAsciiWeak(data) {
+            const weak = {};
+            // Same logic as before
+            let text = 'Weak Topics:\n';
+            for (const [t, avg] of Object.entries(weak)) {
+                text += `${t}: ${avg.toFixed(1)}%\n`;
+            }
+            return text || 'No weak topics.';
+        }
+
+        function backToDashboard() {
+            document.getElementById('progress-view').style.display = 'none';
+            document.getElementById('welcome').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

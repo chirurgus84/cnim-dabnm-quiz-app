@@ -1,0 +1,86 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DABNM Practice Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+    <div class="container mx-auto p-4">
+        <h1 class="text-3xl font-bold text-center mb-6">DABNM Written Exam Practice Quiz</h1>
+        <div id="quiz" class="space-y-6"></div>
+        <div class="text-center">
+            <button id="submitQuiz" class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600" onclick="submitQuiz()">Submit Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            { id: 1, topic: "Basic Neuroscience", question: "Ependymal cells primarily line?", options: ["Blood vessels", "Ventricles", "Synapses", "Axons"], correct: "B", explanation: "Ependymal cells line the ventricles and central canal, aiding in CSF circulation." },
+            { id: 2, topic: "Basic Neuroscience", question: "Refractory period ensures?", options: ["Bidirectional propagation", "Unidirectional impulse", "Synaptic delay", "Glial activation"], correct: "B", explanation: "The refractory period prevents backward propagation, ensuring unidirectional impulse travel." },
+            { id: 3, topic: "Basic Neuroscience", question: "Insula cortex involved in?", options: ["Taste/viscera", "Motor control", "Vision", "Hearing"], correct: "A", explanation: "The insula is involved in gustation and visceral sensation." },
+            { id: 4, topic: "Basic Neuroscience", question: "Chromatolysis post-injury affects?", options: ["Axon", "Nucleus in soma", "Dendrites", "Myelin"], correct: "B", explanation: "Chromatolysis is the dispersion of Nissl bodies in the soma after axonal injury." },
+            { id: 5, topic: "Basic Neuroscience", question: "Multiple sclerosis pathology?", options: ["Axonal transection", "Demyelination", "Neuronal death", "Glial overgrowth"], correct: "B", explanation: "MS is characterized by demyelination of axons in the CNS." },
+            { id: 6, topic: "Basic Neuroscience", question: "Pons contains tracts for?", options: ["Cranial nerves V-VIII", "Limbic emotions", "Thalamic relay", "Cortical association"], correct: "A", explanation: "The pons houses nuclei for cranial nerves V-VIII." },
+            { id: 7, topic: "Basic Neuroscience", question: "Hebbian theory states?", options: ["Cells that fire together wire together", "Isolation strengthens synapses", "Stress prunes connections", "Rest rebuilds neurons"], correct: "A", explanation: "Hebb's rule describes synaptic strengthening through co-activation." },
+            { id: 8, topic: "Basic Neuroscience", question: "The ascending fibers of the cuneate nucleus and gracilis nucleus cross over in the medulla to form what structure?", options: ["Internal capsule", "Lateral lemniscus", "Medial lemniscus", "Superior colliculus"], correct: "C", explanation: "The medial lemniscus is formed by decussating fibers from gracilis and cuneate nuclei." },
+            { id: 9, topic: "Basic Neuroscience", question: "What is the primary function of the basal ganglia?", options: ["Sensory processing", "Motor control and learning", "Memory storage", "Visual perception"], correct: "B", explanation: "Basal ganglia are key for motor control, habit formation, and reward." },
+            { id: 10, topic: "Basic Neuroscience", question: "Which structure connects the two cerebral hemispheres?", options: ["Thalamus", "Corpus callosum", "Hypothalamus", "Amygdala"], correct: "B", explanation: "The corpus callosum is the major commissure connecting hemispheres." },
+            { id: 11, topic: "Basic Neuroscience", question: "The myelin sheath is produced by which cells in the CNS?", options: ["Astrocytes", "Oligodendrocytes", "Microglia", "Schwann cells"], correct: "B", explanation: "Oligodendrocytes myelinate axons in the CNS; Schwann in PNS." },
+            { id: 12, topic: "Basic Neuroscience", question: "What is the resting membrane potential of a typical neuron?", options: ["-70 mV", "+40 mV", "-90 mV", "0 mV"], correct: "A", explanation: "Typical resting potential is -70 mV due to ion gradients." },
+            { id: 13, topic: "Basic Neuroscience", question: "Which neurotransmitter is primarily inhibitory in the CNS?", options: ["Glutamate", "GABA", "Dopamine", "Serotonin"], correct: "B", explanation: "GABA is the main inhibitory neurotransmitter; glutamate excitatory." },
+            { id: 14, topic: "Basic Neuroscience", question: "The blood-brain barrier is formed by?", options: ["Neurons", "Endothelial cells", "Glia", "Synapses"], correct: "B", explanation: "Tight junctions in endothelial cells form the BBB." },
+            { id: 15, topic: "Basic Neuroscience", question: "What is the role of the cerebellum?", options: ["Emotion regulation", "Coordination and balance", "Language processing", "Olfaction"], correct: "B", explanation: "Cerebellum coordinates...(truncated 17979 characters)...rain-of-four for?", options: ["Neuromuscular block", "MEP", "SEP", "EEG"], correct: "A", explanation: "TOF for neuromuscular blockade monitoring." },
+            { id: 86, topic: "Motor Potentials", question: "MEP contraindication?", options: ["Pacemaker", "No", "Epilepsy history", "A and C"], correct: "D", explanation: "Contraindicated in epilepsy or pacemaker." },
+            { id: 87, topic: "Motor Potentials", question: "Phase reversal in?", options: ["Cortical mapping with SEP", "MEP", "EMG", "BAEP"], correct: "A", explanation: "Phase reversal in SEP for central sulcus identification." },
+            { id: 88, topic: "Motor Potentials", question: "Recurrent laryngeal nerve monitoring?", options: ["EMG in vocal cords", "SEP", "EEG", "VEP"], correct: "A", explanation: "EMG in endotracheal tube for RLN." },
+            { id: 89, topic: "Motor Potentials", question: "Bite injury risk in?", options: ["TcMEP", "SSEP", "BAEP", "EEG"], correct: "A", explanation: "Bite risk in TcMEP due to jaw clench." },
+            { id: 90, topic: "Motor Potentials", question: "Motor evoked potential stimulation site?", options: ["Scalp", "Spine", "Muscle", "Nerve"], correct: "A", explanation: "Transcranial over scalp." },
+            { id: 91, topic: "Motor Potentials", question: "EMG electrode type?", options: ["Needle or surface", "Subdural", "Depth", "Grid"], correct: "A", explanation: "Needle for intramuscular EMG." },
+            { id: 92, topic: "Motor Potentials", question: "D-wave amplitude drop >50%?", options: ["Irreversible injury", "Reversible", "Normal", "Ignore"], correct: "A", explanation: ">50% D-wave drop indicates potential injury." },
+            { id: 93, topic: "Effects of Anesthesia", question: "Enflurane at MAC 1?", options: ["SSEP preservation", "MEP depression", "BAEP enhancement", "VEP inversion"], correct: "B", explanation: "Volatiles like enflurane depress MEP." },
+            { id: 94, topic: "Effects of Anesthesia", question: "Lidocaine systemic effect on EPs?", options: ["Latency prolongation", "Amplitude boost", "Neutral", "Suppression"], correct: "A", explanation: "Systemic lidocaine can prolong latencies." },
+            { id: 95, topic: "Effects of Anesthesia", question: "Double burst stimulation assesses?", options: ["NMB recovery", "EP integrity", "EEG suppression", "Latency shifts"], correct: "A", explanation: "DBS for neuromuscular block recovery." },
+            { id: 96, topic: "Effects of Anesthesia", question: "Alprazolam impacts?", options: ["Sensory boost", "Cortical attenuation", "Brainstem stability", "Visual change"], correct: "B", explanation: "Benzodiazepines like alprazolam attenuate cortical potentials." },
+            { id: 97, topic: "Effects of Anesthesia", question: "Acidosis from hypoventilation?", options: ["Amplitude increase", "Latency extension", "SNR improvement", "Polarity shift"], correct: "B", explanation: "Acidosis extends latencies in EPs." },
+            { id: 98, topic: "Effects of Anesthesia", question: "Pentothal induces?", options: ["Burst suppression", "MEP enhancement", "SSEP shortening", "BAEP abolition"], correct: "A", explanation: "Bar

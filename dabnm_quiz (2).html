@@ -1,0 +1,239 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DABNM Practice Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+    <div class="container mx-auto p-4">
+        <h1 class="text-3xl font-bold text-center mb-6">DABNM Written Exam Practice Quiz</h1>
+        <div id="quiz" class="space-y-6"></div>
+        <div class="text-center">
+            <button id="submitQuiz" class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 hidden" onclick="submitQuiz()">Submit Quiz</button>
+        </div>
+    </div>
+
+    <!-- Modal for results -->
+    <div id="resultsModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-11/12 max-w-2xl">
+            <h2 class="text-2xl font-bold mb-4 text-center">Quiz Results</h2>
+            <canvas id="resultsChart" class="mb-4"></canvas>
+            <div class="text-center">
+                <button id="newQuiz" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">Take Another Quiz</button>
+                <button id="closeModal" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 ml-2">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // New question bank with 100 different questions
+        const questionBank = [
+            { id: 1, topic: "Basic Neuroscience", question: "Which cells produce cerebrospinal fluid?", options: ["Astrocytes", "Ependymal cells", "Microglia", "Oligodendrocytes"], correct: "B", explanation: "Ependymal cells in the choroid plexus produce CSF." },
+            { id: 2, topic: "Basic Neuroscience", question: "What ion is primarily responsible for the action potential upstroke?", options: ["Potassium", "Sodium", "Calcium", "Chloride"], correct: "B", explanation: "Sodium influx causes depolarization in the action potential." },
+            { id: 3, topic: "Basic Neuroscience", question: "The amygdala is primarily involved in?", options: ["Memory consolidation", "Emotion processing", "Motor planning", "Sensory relay"], correct: "B", explanation: "The amygdala processes emotions, especially fear and reward." },
+            { id: 4, topic: "Basic Neuroscience", question: "Which structure is the primary visual processing area?", options: ["Frontal lobe", "Parietal lobe", "Occipital lobe", "Temporal lobe"], correct: "C", explanation: "The occipital lobe, specifically V1, processes visual information." },
+            { id: 5, topic: "Basic Neuroscience", question: "What is the primary excitatory neurotransmitter in the CNS?", options: ["GABA", "Glutamate", "Dopamine", "Serotonin"], correct: "B", explanation: "Glutamate is the main excitatory neurotransmitter." },
+            { id: 6, topic: "Basic Neuroscience", question: "The corticospinal tract originates from?", options: ["Cerebellum", "Motor cortex", "Thalamus", "Brainstem"], correct: "B", explanation: "The corticospinal tract originates in the motor cortex for voluntary movement." },
+            { id: 7, topic: "Basic Neuroscience", question: "What is the role of Schwann cells?", options: ["Myelination in CNS", "Myelination in PNS", "Phagocytosis", "BBB formation"], correct: "B", explanation: "Schwann cells myelinate axons in the peripheral nervous system." },
+            { id: 8, topic: "Basic Neuroscience", question: "Which cranial nerve controls tongue movement?", options: ["VII", "IX", "X", "XII"], correct: "D", explanation: "The hypoglossal nerve (XII) innervates tongue muscles." },
+            { id: 9, topic: "Basic Neuroscience", question: "What is the function of the hypothalamus?", options: ["Motor coordination", "Homeostasis regulation", "Sensory processing", "Language"], correct: "B", explanation: "The hypothalamus regulates autonomic functions like hunger and temperature." },
+            { id: 10, topic: "Basic Neuroscience", question: "The spinothalamic tract carries?", options: ["Fine touch", "Pain and temperature", "Proprioception", "Motor signals"], correct: "B", explanation: "The spinothalamic tract transmits pain and temperature sensations." },
+            { id: 11, topic: "Basic Neuroscience", question: "Which structure is key for spatial navigation?", options: ["Hippocampus", "Amygdala", "Thalamus", "Cerebellum"], correct: "A", explanation: "The hippocampus is critical for spatial memory and navigation." },
+            { id: 12, topic: "Basic Neuroscience", question: "What is the primary source of norepinephrine in the brain?", options: ["Raphe nuclei", "Locus coeruleus", "Substantia nigra", "Ventral tegmental area"], correct: "B", explanation: "The locus coeruleus is the main source of norepinephrine." },
+            { id: 13, topic: "Basic Neuroscience", question: "The dorsal root ganglion contains?", options: ["Motor neurons", "Sensory neurons", "Interneurons", "Glia"], correct: "B", explanation: "The dorsal root ganglion houses sensory neuron cell bodies." },
+            { id: 14, topic: "Basic Neuroscience", question: "What is the function of the superior colliculus?", options: ["Auditory proces...(truncated 22266 characters)...esia", question: "What is the effect of nitrous oxide on VEP?", options: ["Minimal effect", "Significant depression", "Amplitude increase", "Latency reduction"], correct: "B", explanation: "Nitrous oxide depresses VEP responses." },
+            { id: 100, topic: "Effects of Anesthesia", question: "High-dose opioids affect?", options: ["BAEP", "SSEP", "EEG", "All EPs"], correct: "C", explanation: "High-dose opioids primarily affect EEG, causing slowing." }
+        ];
+
+        // Shuffle questions while preserving topic ratio
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        let currentQuestions = shuffle([...questionBank]);
+        const userAnswers = new Array(100).fill(null);
+        const quizContainer = document.getElementById('quiz');
+        const submitButton = document.getElementById('submitQuiz');
+        const resultsModal = document.getElementById('resultsModal');
+        const closeModalButton = document.getElementById('closeModal');
+        const newQuizButton = document.getElementById('newQuiz');
+
+        function renderQuiz() {
+            quizContainer.innerHTML = '';
+            currentQuestions.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'bg-white p-4 rounded-lg shadow-md';
+                questionDiv.innerHTML = `
+                    <h2 class="text-xl font-semibold mb-2">${index + 1}. ${q.question}</h2>
+                    <div class="space-y-2">
+                        ${q.options.map((option, i) => `
+                            <label class="flex items-center">
+                                <input type="radio" name="q${index}" value="${String.fromCharCode(65 + i)}" class="mr-2" onchange="selectAnswer(${index}, '${String.fromCharCode(65 + i)}', this)">
+                                ${String.fromCharCode(65 + i)}) ${option}
+                            </label>
+                        `).join('')}
+                    </div>
+                    <div id="feedback${index}" class="mt-4 hidden">
+                        <p class="${q.correct ? 'text-green-600' : 'text-red-600'}"><strong>Correct Answer:</strong> ${q.correct}</p>
+                        <p><strong>Explanation:</strong> ${q.explanation}</p>
+                    </div>
+                `;
+                quizContainer.appendChild(questionDiv);
+            });
+            updateSubmitButton();
+        }
+
+        function selectAnswer(questionIndex, answer, radioInput) {
+            userAnswers[questionIndex] = answer;
+            const feedbackDiv = document.getElementById(`feedback${questionIndex}`);
+            feedbackDiv.classList.remove('hidden');
+            const isCorrect = answer === currentQuestions[questionIndex].correct;
+            feedbackDiv.querySelector('p').className = isCorrect ? 'text-green-600' : 'text-red-600';
+            // Disable other options for this question
+            document.querySelectorAll(`input[name="q${questionIndex}"]`).forEach(input => {
+                if (input !== radioInput) input.disabled = true;
+            });
+            updateSubmitButton();
+        }
+
+        function updateSubmitButton() {
+            if (!userAnswers.includes(null)) {
+                submitButton.classList.remove('hidden');
+            }
+        }
+
+        function submitQuiz() {
+            const scores = {
+                'Basic Neuroscience': { correct: 0, total: 28 },
+                'Signal Acquisition and Processing': { correct: 0, total: 5 },
+                'Electroencephalography (EEG)': { correct: 0, total: 10 },
+                'Sensory Evoked Potentials': { correct: 0, total: 24 },
+                'Motor Potentials': { correct: 0, total: 24 },
+                'Effects of Anesthesia': { correct: 0, total: 9 }
+            };
+            let totalCorrect = 0;
+            currentQuestions.forEach((q, i) => {
+                if (userAnswers[i] === q.correct) {
+                    scores[q.topic].correct++;
+                    totalCorrect++;
+                }
+            });
+
+            // Prepare chart data
+            const labels = ['Total', ...Object.keys(scores)];
+            const correctPercentages = [
+                (totalCorrect / 100 * 100).toFixed(2),
+                ...Object.values(scores).map(s => (s.correct / s.total * 100).toFixed(2))
+            ];
+            const incorrectPercentages = [
+                (100 - (totalCorrect / 100 * 100)).toFixed(2),
+                ...Object.values(scores).map(s => (100 - (s.correct / s.total * 100)).toFixed(2))
+            ];
+
+            // Render chart
+            const ctx = document.getElementById('resultsChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Correct (%)',
+                            data: correctPercentages,
+                            backgroundColor: 'rgba(34, 197, 94, 0.6)', // Green
+                            borderColor: 'rgba(34, 197, 94, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Incorrect (%)',
+                            data: incorrectPercentages,
+                            backgroundColor: 'rgba(239, 68, 68, 0.6)', // Red
+                            borderColor: 'rgba(239, 68, 68, 1)',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            title: { display: true, text: 'Percentage' }
+                        },
+                        x: { title: { display: true, text: 'Category' } }
+                    },
+                    plugins: { legend: { position: 'top' } }
+                }
+            });
+
+            resultsModal.classList.remove('hidden');
+        }
+
+        closeModalButton.addEventListener('click', () => {
+            resultsModal.classList.add('hidden');
+            // Clear chart
+            const ctx = document.getElementById('resultsChart').getContext('2d');
+            ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        });
+
+        newQuizButton.addEventListener('click', () => {
+            currentQuestions = shuffle([...questionBank]);
+            userAnswers.fill(null);
+            resultsModal.classList.add('hidden');
+            submitButton.classList.add('hidden');
+            // Clear chart
+            const ctx = document.getElementById('resultsChart').getContext('2d');
+            ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+            renderQuiz();
+        });
+
+        renderQuiz();
+    </script>
+</body>
+</html>
