@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CNIM & DABNM Prep App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+    <div class="container mx-auto p-4">
+        <h1 class="text-3xl font-bold text-center mb-6">UWorld-Style CNIM & DABNM Exam Prep</h1>
+        <div id="home" class="space-y-6">
+            <h2 class="text-2xl font-semibold mb-4">Select Exam</h2>
+            <button onclick="selectExam('CNIM')" class="bg-blue-500 text-white px-4 py-2 rounded">CNIM</button>
+            <button onclick="selectExam('DABNM')" class="bg-blue-500 text-white px-4 py-2 rounded">DABNM</button>
+        </div>
+        <div id="quizSetup" class="space-y-6 hidden">
+            <h2 class="text-2xl font-semibold mb-4">Customize Quiz</h2>
+            <div id="topics"></div>
+            <input id="numQuestions" type="number" value="50" class="border p-2">
+            <button onclick="generateQuiz()">Start Quiz</button>
+        </div>
+        <div id="quiz" class="space-y-6 hidden"></div>
+    </div>
+
+    <script>
+        let questions = []; // Load from JSON
+        fetch('questions.json').then(res => res.json()).then(data => questions = data);
+
+        function selectExam(exam) {
+            document.getElementById('home').classList.add('hidden');
+            document.getElementById('quizSetup').classList.remove('hidden');
+            // Filter topics for exam – add more logic later
+        }
+
+        function generateQuiz() {
+            // Basic quiz generation – expand with ratios, timers
+            document.getElementById('quizSetup').classList.add('hidden');
+            document.getElementById('quiz').classList.remove('hidden');
+            // Render questions here
+        }
+    </script>
+</body>
+</html>
