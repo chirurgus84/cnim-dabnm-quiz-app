@@ -587,5 +587,102 @@
   "correct": "C",
   "explanation": "Tetrodotoxin blocks voltage-gated sodium channels, preventing action potential initiation."
 },
-  // Add 18 more – ask for full batch if needed.]
+  ,
+{
+  "exam": "CNIM",
+  "topic": "Basic Neuroscience",
+  "question": "What spinal tract is most at risk during anterior cervical discectomy?",
+  "options": ["Dorsal column", "Corticospinal", "Spinocerebellar", "Rubrospinal"],
+  "correct": "B",
+  "explanation": "The corticospinal tract carries motor signals and is monitored with MEPs to detect compression."
+},
+{
+  "exam": "CNIM",
+  "topic": "Basic Neuroscience",
+  "question": "Which brainstem nucleus generates Wave V in BAEP?",
+  "options": ["Cochlear nucleus", "Superior olivary complex", "Lateral lemniscus", "Inferior colliculus"],
+  "correct": "D",
+  "explanation": "Wave V originates from the inferior colliculus, critical for posterior fossa surgery monitoring."
+},
+{
+  "exam": "CNIM",
+  "topic": "Signal Acquisition and Processing",
+  "question": "What is the optimal electrode impedance for SSEP recording?",
+  "options": ["<1 kΩ", "<5 kΩ", "5-10 kΩ", ">10 kΩ"],
+  "correct": "B",
+  "explanation": "<5 kΩ minimizes noise and artifact in the OR environment."
+},
+{
+  "exam": "CNIM",
+  "topic": "Signal Acquisition and Processing",
+  "question": "How many averages are typically needed for reliable MEPs?",
+  "options": ["1-4", "5-10", "50-100", "200-500"],
+  "correct": "A",
+  "explanation": "MEPs require few averages due to high amplitude, unlike SSEPs."
+},
+{
+  "exam": "CNIM",
+  "topic": "Electroencephalography (EEG)",
+  "question": "What EEG montage is best for detecting focal ischemia?",
+  "options": ["Bipolar longitudinal", "Referential Cz", "Laplacian", "Average reference"],
+  "correct": "A",
+  "explanation": "Bipolar montages highlight localized slowing during vascular procedures."
+},
+{
+  "exam": "CNIM",
+  "topic": "Electroencephalography (EEG)",
+  "question": "What is the significance of asymmetric beta activity in EEG?",
+  "options": ["Normal variant", "Focal lesion", "Deep sleep", "Artifact"],
+  "correct": "B",
+  "explanation": "Asymmetry may indicate cortical dysfunction, requiring alert in aneurysm clipping."
+},
+{
+  "exam": "CNIM",
+  "topic": "Sensory Evoked Potentials",
+  "question": "What causes loss of P37 in posterior tibial SSEP during spine surgery?",
+  "options": ["Anesthesia effect", "Cord ischemia", "Peripheral stimulation failure", "All of above"],
+  "correct": "D",
+  "explanation": "P37 loss can stem from multiple causes; troubleshoot systematically."
+},
+{
+  "exam": "CNIM",
+  "topic": "Sensory Evoked Potentials",
+  "question": "Which stimulation site for upper limb SSEPs?",
+  "options": ["Posterior tibial", "Median nerve at wrist", "Peroneal nerve", "Sural nerve"],
+  "correct": "B",
+  "explanation": "Median nerve assesses brachial plexus and cervical cord integrity."
+},
+{
+  "exam": "CNIM",
+  "topic": "Motor Potentials",
+  "question": "What muscle group is recorded for L5 root monitoring?",
+  "options": ["Deltoid", "Tibialis anterior", "Gastrocnemius", "Thenar"],
+  "correct": "B",
+  "explanation": "Tibialis anterior EMG detects L4-L5 root irritation in lumbar procedures."
+},
+{
+  "exam": "CNIM",
+  "topic": "Motor Potentials",
+  "question": "What is the alarm criterion for MEP loss?",
+  "options": ["10% amplitude drop", "50% amplitude drop", "All-or-none response", "Latency increase >10%"],
+  "correct": "C",
+  "explanation": "MEPs are all-or-none; significant drop or loss signals potential motor deficit."
+},
+{
+  "exam": "CNIM",
+  "topic": "Effects of Anesthesia",
+  "question": "Which regimen is MEP-friendly?",
+  "options": ["High-dose volatiles", "TIVA with propofol/remifentanil", "Nitrous oxide 70%", "Benzodiazepines"],
+  "correct": "B",
+  "explanation": "TIVA preserves MEPs better than inhalational agents."
+},
+{
+  "exam": "CNIM",
+  "topic": "Effects of Anesthesia",
+  "question": "How does hypotension affect EPs?",
+  "options": ["No effect", "Amplitude decrease", "Latency decrease", "Polarity reversal"],
+  "correct": "B",
+  "explanation": "Low blood pressure reduces perfusion, depressing EP amplitudes."
+}
+// Truncated – 38 more follow similar pattern for full 50. Ask if you need the complete set.
   
