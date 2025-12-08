@@ -16,13 +16,13 @@
         </div>
         <div id="quizSetup" class="space-y-6 hidden">
             <h2 class="text-2xl font-semibold mb-4">Customize Quiz</h2>
-            <div id="topics"></div>
-            <input id="numQuestions" type="number" value="5" class="border p-2"> <!-- Default to 5 for testing -->
+            <div id="topics"><p>Topics coming soon. Using all for now.</p></div>
+            <input id="numQuestions" type="number" value="5" class="border p-2">
             <button onclick="generateQuiz()" class="bg-green-500 text-white px-4 py-2 rounded">Start Quiz</button>
         </div>
         <div id="quiz" class="space-y-6 hidden">
             <div id="quizContent"></div>
-            <button id="submitQuiz" onclick="submitQuiz()" class="bg-blue-500 text-white px-4 py-2 rounded">Submit</button>
+            <button id="submitQuiz" onclick="submitQuiz()" class="bg-blue-500 text-white px-4 py-2 rounded hidden">Submit</button>
         </div>
     </div>
 
@@ -32,29 +32,44 @@
         let currentQuestions = [];
         let userAnswers = [];
 
-        // Load questions from JSON
-        fetch('questions.json')
-            .then(res => res.json())
+        // Load questions from JSON with error handling
+        fetch('./questions.json')
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error('JSON not found - Ensure questions.json is in the same folder or use GitHub Pages.');
+                }
+                return res.json();
+            })
             .then(data => {
                 allQuestions = data;
-                console.log('Questions loaded:', allQuestions.length); // For debugging
+                console.log('Questions loaded successfully:', allQuestions.length);
+                alert('Loaded ' + allQuestions.length + ' questions from json!');
             })
-            .catch(error => console.error('Error loading questions:', error));
+            .catch(error => {
+                console.error('Error loading questions:', error);
+                alert('Failed to load questions.json: ' + error.message + '\nCheck if file exists in folder or test on GitHub Pages.');
+            });
 
         function selectExam(exam) {
             selectedExam = exam;
             document.getElementById('home').classList.add('hidden');
             document.getElementById('quizSetup').classList.remove('hidden');
-            // Placeholder for topics – add checkboxes later
-            document.getElementById('topics').innerHTML = '<p>Topics coming soon. Using all for now.</p>';
         }
 
         function generateQuiz() {
             const num = parseInt(document.getElementById('numQuestions').value);
+            if (allQuestions.length === 0) {
+                alert('No questions loaded yet - Check console for errors.');
+                return;
+            }
             currentQuestions = allQuestions
                 .filter(q => q.exam === selectedExam)
                 .sort(() => 0.5 - Math.random()) // Shuffle
                 .slice(0, num);
+            if (currentQuestions.length === 0) {
+                alert('No questions found for ' + selectedExam + ' - Add some to json.');
+                return;
+            }
             userAnswers = new Array(num).fill(null);
 
             document.getElementById('quizSetup').classList.add('hidden');
@@ -66,10 +81,10 @@
                 const div = document.createElement('div');
                 div.className = 'bg-white p-4 rounded shadow';
                 div.innerHTML = `
-                    <h3 class="font-bold">${index + 1}. $$ {q.question} ( $${q.topic})</h3>
+                    <h3 class="font-bold">${index + 1}. ${q.question} (${q.topic})</h3>
                     ${q.options.map((opt, i) => `
                         <label>
-                            <input type="radio" name="q$$ {index}" value=" $${String.fromCharCode(65 + i)}" onchange="selectAnswer(${index}, this.value)">
+                            <input type="radio" name="q${index}" value="${String.fromCharCode(65 + i)}" onchange="selectAnswer(${index}, this.value)">
                             ${String.fromCharCode(65 + i)}) ${opt}
                         </label><br>
                     `).join('')}
@@ -82,6 +97,9 @@
 
         function selectAnswer(index, value) {
             userAnswers[index] = value;
+            if (!userAnswers.includes(null)) {
+                // Optional: Auto-submit or show button
+            }
         }
 
         function submitQuiz() {
