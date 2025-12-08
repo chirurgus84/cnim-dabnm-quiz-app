@@ -17,27 +17,86 @@
         <div id="quizSetup" class="space-y-6 hidden">
             <h2 class="text-2xl font-semibold mb-4">Customize Quiz</h2>
             <div id="topics"></div>
-            <input id="numQuestions" type="number" value="50" class="border p-2">
-            <button onclick="generateQuiz()">Start Quiz</button>
+            <input id="numQuestions" type="number" value="5" class="border p-2"> <!-- Default to 5 for testing -->
+            <button onclick="generateQuiz()" class="bg-green-500 text-white px-4 py-2 rounded">Start Quiz</button>
         </div>
-        <div id="quiz" class="space-y-6 hidden"></div>
+        <div id="quiz" class="space-y-6 hidden">
+            <div id="quizContent"></div>
+            <button id="submitQuiz" onclick="submitQuiz()" class="bg-blue-500 text-white px-4 py-2 rounded">Submit</button>
+        </div>
     </div>
 
     <script>
-        let questions = []; // Load from JSON
-        fetch('questions.json').then(res => res.json()).then(data => questions = data);
+        let allQuestions = []; // Full bank
+        let selectedExam = '';
+        let currentQuestions = [];
+        let userAnswers = [];
+
+        // Load questions from JSON
+        fetch('questions.json')
+            .then(res => res.json())
+            .then(data => {
+                allQuestions = data;
+                console.log('Questions loaded:', allQuestions.length); // For debugging
+            })
+            .catch(error => console.error('Error loading questions:', error));
 
         function selectExam(exam) {
+            selectedExam = exam;
             document.getElementById('home').classList.add('hidden');
             document.getElementById('quizSetup').classList.remove('hidden');
-            // Filter topics for exam – add more logic later
+            // Placeholder for topics – add checkboxes later
+            document.getElementById('topics').innerHTML = '<p>Topics coming soon. Using all for now.</p>';
         }
 
         function generateQuiz() {
-            // Basic quiz generation – expand with ratios, timers
+            const num = parseInt(document.getElementById('numQuestions').value);
+            currentQuestions = allQuestions
+                .filter(q => q.exam === selectedExam)
+                .sort(() => 0.5 - Math.random()) // Shuffle
+                .slice(0, num);
+            userAnswers = new Array(num).fill(null);
+
             document.getElementById('quizSetup').classList.add('hidden');
             document.getElementById('quiz').classList.remove('hidden');
-            // Render questions here
+
+            const content = document.getElementById('quizContent');
+            content.innerHTML = '';
+            currentQuestions.forEach((q, index) => {
+                const div = document.createElement('div');
+                div.className = 'bg-white p-4 rounded shadow';
+                div.innerHTML = `
+                    <h3 class="font-bold">${index + 1}. $$ {q.question} ( $${q.topic})</h3>
+                    ${q.options.map((opt, i) => `
+                        <label>
+                            <input type="radio" name="q$$ {index}" value=" $${String.fromCharCode(65 + i)}" onchange="selectAnswer(${index}, this.value)">
+                            ${String.fromCharCode(65 + i)}) ${opt}
+                        </label><br>
+                    `).join('')}
+                    <div id="feedback${index}" class="hidden"></div>
+                `;
+                content.appendChild(div);
+            });
+            document.getElementById('submitQuiz').classList.remove('hidden');
+        }
+
+        function selectAnswer(index, value) {
+            userAnswers[index] = value;
+        }
+
+        function submitQuiz() {
+            let correct = 0;
+            currentQuestions.forEach((q, i) => {
+                const feedback = document.getElementById(`feedback${i}`);
+                feedback.classList.remove('hidden');
+                if (userAnswers[i] === q.correct) {
+                    correct++;
+                    feedback.innerHTML = `<p class="text-green-600">Correct! Explanation: ${q.explanation}</p>`;
+                } else {
+                    feedback.innerHTML = `<p class="text-red-600">Incorrect. Correct: ${q.correct}. Explanation: ${q.explanation}</p>`;
+                }
+            });
+            alert(`Score: ${correct}/${currentQuestions.length} (${(correct / currentQuestions.length * 100).toFixed(2)}%)`);
         }
     </script>
 </body>
