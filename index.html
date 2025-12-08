@@ -27,28 +27,33 @@
     </div>
 
     <script>
-        let allQuestions = []; // Full bank
+        // Hard-coded questions for local testing (your full bank from questions.json)
+        const allQuestions = [
+          {
+            "exam": "DABNM",
+            "id": 1,
+            "topic": "Basic Neuroscience",
+            "question": "Ependymal cells primarily line?",
+            "options": ["Blood vessels", "Ventricles", "Synapses", "Axons"],
+            "correct": "B",
+            "explanation": "Ependymal cells line the ventricles and central canal, aiding in CSF circulation."
+          },
+          // ... (all 50 from your json here – truncated for brevity, paste the full array from my previous message or your file)
+          {
+            "exam": "DABNM",
+            "id": 50,
+            "topic": "Basic Neuroscience",
+            "question": "The ventral tegmental area is associated with?",
+            "options": ["Reward and motivation (dopamine)", "Pain modulation", "Balance", "Vision"],
+            "correct": "A",
+            "explanation": "VTA dopamine neurons are key in reward pathways and addiction."
+          }
+        ];
+        console.log('Hard-coded questions loaded:', allQuestions.length); // Debug
+
         let selectedExam = '';
         let currentQuestions = [];
         let userAnswers = [];
-
-        // Load questions from JSON with error handling
-        fetch('./questions.json')
-            .then(res => {
-                if (!res.ok) {
-                    throw new Error('JSON not found - Ensure questions.json is in the same folder or use GitHub Pages.');
-                }
-                return res.json();
-            })
-            .then(data => {
-                allQuestions = data;
-                console.log('Questions loaded successfully:', allQuestions.length);
-                alert('Loaded ' + allQuestions.length + ' questions from json!');
-            })
-            .catch(error => {
-                console.error('Error loading questions:', error);
-                alert('Failed to load questions.json: ' + error.message + '\nCheck if file exists in folder or test on GitHub Pages.');
-            });
 
         function selectExam(exam) {
             selectedExam = exam;
@@ -59,7 +64,7 @@
         function generateQuiz() {
             const num = parseInt(document.getElementById('numQuestions').value);
             if (allQuestions.length === 0) {
-                alert('No questions loaded yet - Check console for errors.');
+                alert('No questions available - Add to the hard-coded array.');
                 return;
             }
             currentQuestions = allQuestions
@@ -67,7 +72,7 @@
                 .sort(() => 0.5 - Math.random()) // Shuffle
                 .slice(0, num);
             if (currentQuestions.length === 0) {
-                alert('No questions found for ' + selectedExam + ' - Add some to json.');
+                alert('No questions for ' + selectedExam + ' - Add some to the array.');
                 return;
             }
             userAnswers = new Array(num).fill(null);
@@ -97,9 +102,6 @@
 
         function selectAnswer(index, value) {
             userAnswers[index] = value;
-            if (!userAnswers.includes(null)) {
-                // Optional: Auto-submit or show button
-            }
         }
 
         function submitQuiz() {
