@@ -119,32 +119,458 @@
   "options": ["Increases amplitude", "Prolongs latency", "Shortens latency", "No effect"],
   "correct": "B",
   "explanation": "Hypothermia slows nerve conduction, prolonging latencies in SSEPs and MEPs."
-}[          { id: 1, topic: "Basic Neuroscience", question: "Ependymal cells primarily line?", options: ["Blood vessels", "Ventricles", "Synapses", "Axons"], correct: "B", explanation: "Ependymal cells line the ventricles and central canal, aiding in CSF circulation." },
-            { id: 2, topic: "Basic Neuroscience", question: "Refractory period ensures?", options: ["Bidirectional propagation", "Unidirectional impulse", "Synaptic delay", "Glial activation"], correct: "B", explanation: "The refractory period prevents backward propagation, ensuring unidirectional impulse travel." },
-            { id: 3, topic: "Basic Neuroscience", question: "Insula cortex involved in?", options: ["Taste/viscera", "Motor control", "Vision", "Hearing"], correct: "A", explanation: "The insula is involved in gustation and visceral sensation." },
-            { id: 4, topic: "Basic Neuroscience", question: "Chromatolysis post-injury affects?", options: ["Axon", "Nucleus in soma", "Dendrites", "Myelin"], correct: "B", explanation: "Chromatolysis is the dispersion of Nissl bodies in the soma after axonal injury." },
-            { id: 5, topic: "Basic Neuroscience", question: "Multiple sclerosis pathology?", options: ["Axonal transection", "Demyelination", "Neuronal death", "Glial overgrowth"], correct: "B", explanation: "MS is characterized by demyelination of axons in the CNS." },
-            { id: 6, topic: "Basic Neuroscience", question: "Pons contains tracts for?", options: ["Cranial nerves V-VIII", "Limbic emotions", "Thalamic relay", "Cortical association"], correct: "A", explanation: "The pons houses nuclei for cranial nerves V-VIII." },
-            { id: 7, topic: "Basic Neuroscience", question: "Hebbian theory states?", options: ["Cells that fire together wire together", "Isolation strengthens synapses", "Stress prunes connections", "Rest rebuilds neurons"], correct: "A", explanation: "Hebb's rule describes synaptic strengthening through co-activation." },
-            { id: 8, topic: "Basic Neuroscience", question: "The ascending fibers of the cuneate nucleus and gracilis nucleus cross over in the medulla to form what structure?", options: ["Internal capsule", "Lateral lemniscus", "Medial lemniscus", "Superior colliculus"], correct: "C", explanation: "The medial lemniscus is formed by decussating fibers from gracilis and cuneate nuclei." },
-            { id: 9, topic: "Basic Neuroscience", question: "What is the primary function of the basal ganglia?", options: ["Sensory processing", "Motor control and learning", "Memory storage", "Visual perception"], correct: "B", explanation: "Basal ganglia are key for motor control, habit formation, and reward." },
-            { id: 10, topic: "Basic Neuroscience", question: "Which structure connects the two cerebral hemispheres?", options: ["Thalamus", "Corpus callosum", "Hypothalamus", "Amygdala"], correct: "B", explanation: "The corpus callosum is the major commissure connecting hemispheres." },
-            { id: 11, topic: "Basic Neuroscience", question: "The myelin sheath is produced by which cells in the CNS?", options: ["Astrocytes", "Oligodendrocytes", "Microglia", "Schwann cells"], correct: "B", explanation: "Oligodendrocytes myelinate axons in the CNS; Schwann in PNS." },
-            { id: 12, topic: "Basic Neuroscience", question: "What is the resting membrane potential of a typical neuron?", options: ["-70 mV", "+40 mV", "-90 mV", "0 mV"], correct: "A", explanation: "Typical resting potential is -70 mV due to ion gradients." },
-            { id: 13, topic: "Basic Neuroscience", question: "Which neurotransmitter is primarily inhibitory in the CNS?", options: ["Glutamate", "GABA", "Dopamine", "Serotonin"], correct: "B", explanation: "GABA is the main inhibitory neurotransmitter; glutamate excitatory." },
-            { id: 14, topic: "Basic Neuroscience", question: "The blood-brain barrier is formed by?", options: ["Neurons", "Endothelial cells", "Glia", "Synapses"], correct: "B", explanation: "Tight junctions in endothelial cells form the BBB." },
-            { id: 15, topic: "Basic Neuroscience", question: "What is the role of the cerebellum?", options: ["Emotion regulation", "Coordination and balance", "Language processing", "Olfaction"], correct: "B", explanation: "Cerebellum coordinates...(truncated 17979 characters)...rain-of-four for?", options: ["Neuromuscular block", "MEP", "SEP", "EEG"], correct: "A", explanation: "TOF for neuromuscular blockade monitoring." },
-            { id: 86, topic: "Motor Potentials", question: "MEP contraindication?", options: ["Pacemaker", "No", "Epilepsy history", "A and C"], correct: "D", explanation: "Contraindicated in epilepsy or pacemaker." },
-            { id: 87, topic: "Motor Potentials", question: "Phase reversal in?", options: ["Cortical mapping with SEP", "MEP", "EMG", "BAEP"], correct: "A", explanation: "Phase reversal in SEP for central sulcus identification." },
-            { id: 88, topic: "Motor Potentials", question: "Recurrent laryngeal nerve monitoring?", options: ["EMG in vocal cords", "SEP", "EEG", "VEP"], correct: "A", explanation: "EMG in endotracheal tube for RLN." },
-            { id: 89, topic: "Motor Potentials", question: "Bite injury risk in?", options: ["TcMEP", "SSEP", "BAEP", "EEG"], correct: "A", explanation: "Bite risk in TcMEP due to jaw clench." },
-            { id: 90, topic: "Motor Potentials", question: "Motor evoked potential stimulation site?", options: ["Scalp", "Spine", "Muscle", "Nerve"], correct: "A", explanation: "Transcranial over scalp." },
-            { id: 91, topic: "Motor Potentials", question: "EMG electrode type?", options: ["Needle or surface", "Subdural", "Depth", "Grid"], correct: "A", explanation: "Needle for intramuscular EMG." },
-            { id: 92, topic: "Motor Potentials", question: "D-wave amplitude drop >50%?", options: ["Irreversible injury", "Reversible", "Normal", "Ignore"], correct: "A", explanation: ">50% D-wave drop indicates potential injury." },
-            { id: 93, topic: "Effects of Anesthesia", question: "Enflurane at MAC 1?", options: ["SSEP preservation", "MEP depression", "BAEP enhancement", "VEP inversion"], correct: "B", explanation: "Volatiles like enflurane depress MEP." },
-            { id: 94, topic: "Effects of Anesthesia", question: "Lidocaine systemic effect on EPs?", options: ["Latency prolongation", "Amplitude boost", "Neutral", "Suppression"], correct: "A", explanation: "Systemic lidocaine can prolong latencies." },
-            { id: 95, topic: "Effects of Anesthesia", question: "Double burst stimulation assesses?", options: ["NMB recovery", "EP integrity", "EEG suppression", "Latency shifts"], correct: "A", explanation: "DBS for neuromuscular block recovery." }
-  ,
+}[ [
+  {
+    "exam": "DABNM",
+    "id": 1,
+    "topic": "Basic Neuroscience",
+    "question": "Ependymal cells primarily line?",
+    "options": ["Blood vessels", "Ventricles", "Synapses", "Axons"],
+    "correct": "B",
+    "explanation": "Ependymal cells line the ventricles and central canal, aiding in CSF circulation."
+  },
+  {
+    "exam": "DABNM",
+    "id": 2,
+    "topic": "Basic Neuroscience",
+    "question": "Refractory period ensures?",
+    "options": ["Bidirectional propagation", "Unidirectional impulse", "Synaptic delay", "Glial activation"],
+    "correct": "B",
+    "explanation": "The refractory period prevents backward propagation, ensuring unidirectional impulse travel."
+  },
+  {
+    "exam": "DABNM",
+    "id": 3,
+    "topic": "Basic Neuroscience",
+    "question": "Insula cortex involved in?",
+    "options": ["Taste/viscera", "Motor control", "Vision", "Hearing"],
+    "correct": "A",
+    "explanation": "The insula is involved in gustation and visceral sensation."
+  },
+  {
+    "exam": "DABNM",
+    "id": 4,
+    "topic": "Basic Neuroscience",
+    "question": "Chromatolysis post-injury affects?",
+    "options": ["Axon", "Nucleus in soma", "Dendrites", "Myelin"],
+    "correct": "B",
+    "explanation": "Chromatolysis is the dispersion of Nissl bodies in the soma after axonal injury."
+  },
+  {
+    "exam": "DABNM",
+    "id": 5,
+    "topic": "Basic Neuroscience",
+    "question": "Multiple sclerosis pathology?",
+    "options": ["Axonal transection", "Demyelination", "Neuronal death", "Glial overgrowth"],
+    "correct": "B",
+    "explanation": "MS is characterized by demyelination of axons in the CNS."
+  },
+  {
+    "exam": "DABNM",
+    "id": 6,
+    "topic": "Basic Neuroscience",
+    "question": "Pons contains tracts for?",
+    "options": ["Cranial nerves V-VIII", "Limbic emotions", "Thalamic relay", "Cortical association"],
+    "correct": "A",
+    "explanation": "The pons houses nuclei for cranial nerves V-VIII."
+  },
+  {
+    "exam": "DABNM",
+    "id": 7,
+    "topic": "Basic Neuroscience",
+    "question": "Hebbian theory states?",
+    "options": ["Cells that fire together wire together", "Isolation strengthens synapses", "Stress prunes connections", "Rest rebuilds neurons"],
+    "correct": "A",
+    "explanation": "Hebb's rule describes synaptic strengthening through co-activation."
+  },
+  {
+    "exam": "DABNM",
+    "id": 8,
+    "topic": "Basic Neuroscience",
+    "question": "The ascending fibers of the cuneate nucleus and gracilis nucleus cross over in the medulla to form what structure?",
+    "options": ["Internal capsule", "Lateral lemniscus", "Medial lemniscus", "Superior colliculus"],
+    "correct": "C",
+    "explanation": "The medial lemniscus is formed by decussating fibers from gracilis and cuneate nuclei."
+  },
+  {
+    "exam": "DABNM",
+    "id": 9,
+    "topic": "Basic Neuroscience",
+    "question": "What is the primary function of the basal ganglia?",
+    "options": ["Sensory processing", "Motor control and learning", "Memory storage", "Visual perception"],
+    "correct": "B",
+    "explanation": "Basal ganglia are key for motor control, habit formation, and reward."
+  },
+  {
+    "exam": "DABNM",
+    "id": 10,
+    "topic": "Basic Neuroscience",
+    "question": "Which structure connects the two cerebral hemispheres?",
+    "options": ["Thalamus", "Corpus callosum", "Hypothalamus", "Amygdala"],
+    "correct": "B",
+    "explanation": "The corpus callosum is the major commissure connecting hemispheres."
+  },
+  {
+    "exam": "DABNM",
+    "id": 11,
+    "topic": "Basic Neuroscience",
+    "question": "The myelin sheath is produced by which cells in the CNS?",
+    "options": ["Astrocytes", "Oligodendrocytes", "Microglia", "Schwann cells"],
+    "correct": "B",
+    "explanation": "Oligodendrocytes myelinate axons in the CNS; Schwann in PNS."
+  },
+  {
+    "exam": "DABNM",
+    "id": 12,
+    "topic": "Basic Neuroscience",
+    "question": "What is the resting membrane potential of a typical neuron?",
+    "options": ["-70 mV", "+40 mV", "-90 mV", "0 mV"],
+    "correct": "A",
+    "explanation": "Typical resting potential is -70 mV due to ion gradients."
+  },
+  {
+    "exam": "DABNM",
+    "id": 13,
+    "topic": "Basic Neuroscience",
+    "question": "Which neurotransmitter is primarily inhibitory in the CNS?",
+    "options": ["Glutamate", "GABA", "Dopamine", "Serotonin"],
+    "correct": "B",
+    "explanation": "GABA is the main inhibitory neurotransmitter; glutamate excitatory."
+  },
+  {
+    "exam": "DABNM",
+    "id": 14,
+    "topic": "Basic Neuroscience",
+    "question": "The blood-brain barrier is formed by?",
+    "options": ["Neurons", "Endothelial cells", "Glia", "Synapses"],
+    "correct": "B",
+    "explanation": "Tight junctions in endothelial cells form the BBB."
+  },
+  {
+    "exam": "DABNM",
+    "id": 15,
+    "topic": "Basic Neuroscience",
+    "question": "What is the role of the cerebellum?",
+    "options": ["Emotion regulation", "Coordination and balance", "Language processing", "Olfaction"],
+    "correct": "B",
+    "explanation": "Cerebellum coordinates movement and maintains balan..."
+  },
+  {
+    "exam": "DABNM",
+    "id": 16,
+    "topic": "Basic Neuroscience",
+    "question": "The substantia nigra is associated with which neurotransmitter?",
+    "options": ["Serotonin", "Dopamine", "GABA", "Glutamate"],
+    "correct": "B",
+    "explanation": "The substantia nigra produces dopamine, important in motor control and Parkinson's disease."
+  },
+  {
+    "exam": "DABNM",
+    "id": 17,
+    "topic": "Basic Neuroscience",
+    "question": "What is the function of the thalamus?",
+    "options": ["Motor execution", "Sensory relay", "Memory storage", "Emotional regulation"],
+    "correct": "B",
+    "explanation": "The thalamus relays sensory and motor signals to the cerebral cortex."
+  },
+  {
+    "exam": "DABNM",
+    "id": 18,
+    "topic": "Basic Neuroscience",
+    "question": "Which cells support neuronal metabolism and form the BBB?",
+    "options": ["Oligodendrocytes", "Astrocytes", "Microglia", "Ependymal cells"],
+    "correct": "B",
+    "explanation": "Astrocytes provide structural support, regulate ions, and contribute to the blood-brain barrier."
+  },
+  {
+    "exam": "DABNM",
+    "id": 19,
+    "topic": "Basic Neuroscience",
+    "question": "What is saltatory conduction?",
+    "options": ["Continuous propagation", "Jumping between nodes of Ranvier", "Synaptic transmission", "Glial signaling"],
+    "correct": "B",
+    "explanation": "Saltatory conduction speeds up impulse transmission by jumping between myelinated nodes."
+  },
+  {
+    "exam": "DABNM",
+    "id": 20,
+    "topic": "Basic Neuroscience",
+    "question": "The limbic system is primarily involved in?",
+    "options": ["Motor control", "Emotion and memory", "Sensory processing", "Balance"],
+    "correct": "B",
+    "explanation": "The limbic system, including the amygdala and hippocampus, regulates emotions and memory."
+  },
+  {
+    "exam": "DABNM",
+    "id": 21,
+    "topic": "Signal Acquisition and Processing",
+    "question": "What is the purpose of a differential amplifier in IONM?",
+    "options": ["Amplify noise", "Reduce common-mode interference", "Invert signals", "Filter frequencies"],
+    "correct": "B",
+    "explanation": "Differential amplifiers subtract common noise, enhancing the biological signal."
+  },
+  {
+    "exam": "DABNM",
+    "id": 22,
+    "topic": "Signal Acquisition and Processing",
+    "question": "What is the common mode rejection ratio (CMRR)?",
+    "options": ["Ratio of differential to common-mode gain", "Signal to noise ratio", "Bandwidth measure", "Impedance balance"],
+    "correct": "A",
+    "explanation": "High CMRR indicates effective rejection of common-mode signals like 60 Hz noise."
+  },
+  {
+    "exam": "DABNM",
+    "id": 23,
+    "topic": "Signal Acquisition and Processing",
+    "question": "What filter removes low-frequency drift in EP recordings?",
+    "options": ["Low-pass", "High-pass", "Notch", "Band-stop"],
+    "correct": "B",
+    "explanation": "High-pass filters eliminate slow drifts from movement or electrode artifacts."
+  },
+  {
+    "exam": "DABNM",
+    "id": 24,
+    "topic": "Signal Acquisition and Processing",
+    "question": "What is aliasing in digital sampling?",
+    "options": ["Signal amplification", "Frequency distortion below Nyquist rate", "Noise reduction", "Amplitude scaling"],
+    "correct": "B",
+    "explanation": "Aliasing occurs when sampling rate is less than twice the highest frequency, distorting signals."
+  },
+  {
+    "exam": "DABNM",
+    "id": 25,
+    "topic": "Signal Acquisition and Processing",
+    "question": "What electrode material is preferred for long-term IONM?",
+    "options": ["Silver/silver chloride", "Gold", "Platinum", "Copper"],
+    "correct": "A",
+    "explanation": "Ag/AgCl electrodes have stable potentials and low noise for evoked potential recordings."
+  },
+  {
+    "exam": "DABNM",
+    "id": 26,
+    "topic": "Electroencephalography (EEG)",
+    "question": "What is the 10-20 system in EEG?",
+    "options": ["Frequency bands", "Electrode placement standard", "Amplifier settings", "Filter types"],
+    "correct": "B",
+    "explanation": "The 10-20 system standardizes electrode positions based on head measurements."
+  },
+  {
+    "exam": "DABNM",
+    "id": 27,
+    "topic": "Electroencephalography (EEG)",
+    "question": "What EEG pattern is seen in deep anesthesia?",
+    "options": ["Alpha dominance", "Burst suppression", "Beta spindles", "Delta waves only"],
+    "correct": "B",
+    "explanation": "Burst suppression indicates profound cortical depression under deep anesthesia."
+  },
+  {
+    "exam": "DABNM",
+    "id": 28,
+    "topic": "Electroencephalography (EEG)",
+    "question": "What is the mu rhythm in EEG?",
+    "options": ["8-13 Hz over sensorimotor cortex", "1-4 Hz delta", "13-30 Hz beta", "4-8 Hz theta"],
+    "correct": "A",
+    "explanation": "Mu rhythm is arc-shaped 8-13 Hz activity over the central regions, suppressed by movement."
+  },
+  {
+    "exam": "DABNM",
+    "id": 29,
+    "topic": "Electroencephalography (EEG)",
+    "question": "What montage displays EEG activity relative to a common reference?",
+    "options": ["Bipolar", "Referential", "Laplacian", "Average reference"],
+    "correct": "B",
+    "explanation": "Referential montages compare each electrode to a single reference, useful for localization."
+  },
+  {
+    "exam": "DABNM",
+    "id": 30,
+    "topic": "Electroencephalography (EEG)",
+    "question": "What is epileptiform activity in EEG?",
+    "options": ["Normal alpha", "Sharp waves or spikes", "Slow delta", "Beta burst"],
+    "correct": "B",
+    "explanation": "Epileptiform discharges like spikes indicate seizure risk, monitored in epilepsy surgery."
+  },
+  {
+    "exam": "DABNM",
+    "id": 31,
+    "topic": "Sensory Evoked Potentials",
+    "question": "What is the P37 peak in posterior tibial SSEP?",
+    "options": ["Peripheral response", "Lumbar potential", "Cortical response", "Brainstem wave"],
+    "correct": "C",
+    "explanation": "P37 is the primary cortical response for lower limb SSEPs."
+  },
+  {
+    "exam": "DABNM",
+    "id": 32,
+    "topic": "Sensory Evoked Potentials",
+    "question": "What is the inter-stimulus interval for BAEP?",
+    "options": ["1-5 ms", "10-20 ms", "50-100 ms", "200-500 ms"],
+    "correct": "B",
+    "explanation": "10-20 ms allows for clear wave separation in auditory evoked potentials."
+  },
+  {
+    "exam": "DABNM",
+    "id": 33,
+    "topic": "Sensory Evoked Potentials",
+    "question": "What waveform is generated by the cochlea in BAEP?",
+    "options": ["Wave I", "Wave III", "Wave V", "Wave VII"],
+    "correct": "A",
+    "explanation": "Wave I originates from the distal auditory nerve near the cochlea."
+  },
+  {
+    "exam": "DABNM",
+    "id": 34,
+    "topic": "Sensory Evoked Potentials",
+    "question": "What is the typical latency of N20 in median SSEP?",
+    "options": ["10 ms", "20 ms", "30 ms", "40 ms"],
+    "correct": "B",
+    "explanation": "N20 latency is approximately 20 ms in adults, delayed in pathology."
+  },
+  {
+    "exam": "DABNM",
+    "id": 35,
+    "topic": "Sensory Evoked Potentials",
+    "question": "What is VEP used to monitor?",
+    "options": ["Auditory pathway", "Visual pathway", "Somatosensory pathway", "Motor pathway"],
+    "correct": "B",
+    "explanation": "Visual evoked potentials assess the optic nerve and visual cortex integrity."
+  },
+  {
+    "exam": "DABNM",
+    "id": 36,
+    "topic": "Motor Potentials",
+    "question": "What is the primary stimulation method for TcMEPs?",
+    "options": ["Peripheral nerve", "Transcranial electrical", "Spinal cord direct", "Muscle direct"],
+    "correct": "B",
+    "explanation": "Transcranial electrical stimulation activates corticospinal tracts for MEP recording."
+  },
+  {
+    "exam": "DABNM",
+    "id": 37,
+    "topic": "Motor Potentials",
+    "question": "What is EMG used for in IONM?",
+    "options": ["Cortical mapping", "Nerve root monitoring", "Sensory pathway", "Visual response"],
+    "correct": "B",
+    "explanation": "EMG detects muscle activity from nerve irritation during surgery."
+  },
+  {
+    "exam": "DABNM",
+    "id": 38,
+    "topic": "Motor Potentials",
+    "question": "What is train-of-four (TOF) monitoring?",
+    "options": ["MEP train stimulation", "Neuromuscular blockade assessment", "EEG burst pattern", "SSEP averaging"],
+    "correct": "B",
+    "explanation": "TOF evaluates neuromuscular junction function under anesthesia."
+  },
+  {
+    "exam": "DABNM",
+    "id": 39,
+    "topic": "Motor Potentials",
+    "question": "What is phase reversal technique in SEP?",
+    "options": ["Motor cortex identification", "Central sulcus localization", "Nerve root stimulation", "Brainstem mapping"],
+    "correct": "B",
+    "explanation": "Phase reversal in cortical SEPs identifies the central sulcus during brain surgery."
+  },
+  {
+    "exam": "DABNM",
+    "id": 40,
+    "topic": "Motor Potentials",
+    "question": "What is the risk of TcMEP stimulation?",
+    "options": ["Hearing loss", "Seizure induction", "Visual disturbance", "Sensory loss"],
+    "correct": "B",
+    "explanation": "High-voltage stimulation can induce seizures, hence contraindication in epilepsy patients."
+  },
+  {
+    "exam": "DABNM",
+    "id": 41,
+    "topic": "Effects of Anesthesia",
+    "question": "What is the effect of propofol on SSEPs?",
+    "options": ["Amplitude increase", "Dose-dependent depression", "No effect", "Latency shortening"],
+    "correct": "B",
+    "explanation": "Propofol causes dose-dependent amplitude reduction in cortical potentials."
+  },
+  {
+    "exam": "DABNM",
+    "id": 42,
+    "topic": "Effects of Anesthesia",
+    "question": "Which agent is preferred for MEP monitoring?",
+    "options": ["Isoflurane", "Total intravenous anesthesia (TIVA)", "Nitrous oxide", "Halothane"],
+    "correct": "B",
+    "explanation": "TIVA (e.g., propofol + opioid) preserves MEPs better than volatiles."
+  },
+  {
+    "exam": "DABNM",
+    "id": 43,
+    "topic": "Effects of Anesthesia",
+    "question": "How does ketamine affect evoked potentials?",
+    "options": ["Depresses all", "Enhances cortical amplitudes", "No effect on BAEP", "Inverts waveforms"],
+    "correct": "B",
+    "explanation": "Ketamine can increase SEP and MEP amplitudes, useful in pediatric cases."
+  },
+  {
+    "exam": "DABNM",
+    "id": 44,
+    "topic": "Effects of Anesthesia",
+    "question": "What is the impact of hyperventilation on EEG?",
+    "options": ["Burst suppression", "Slowing", "Activation of epileptiform activity", "Beta increase"],
+    "correct": "C",
+    "explanation": "Hyperventilation can activate epileptiform discharges in susceptible patients."
+  },
+  {
+    "exam": "DABNM",
+    "id": 45,
+    "topic": "Effects of Anesthesia",
+    "question": "Which neuromuscular blocker affects TOF but not MEPs?",
+    "options": ["Succinylcholine", "Rocuronium", "Vecuronium", "None—all affect"],
+    "correct": "D",
+    "explanation": "All neuromuscular blockers depress TOF and can abolish MEPs if profound block."
+  },
+  {
+    "exam": "DABNM",
+    "id": 46,
+    "topic": "Basic Neuroscience",
+    "question": "What is Wallerian degeneration?",
+    "options": ["Axonal regrowth", "Distal axon degeneration after injury", "Myelin reformation", "Soma hypertrophy"],
+    "correct": "B",
+    "explanation": "Wallerian degeneration is the breakdown of the distal axon segment after transection."
+  },
+  {
+    "exam": "DABNM",
+    "id": 47,
+    "topic": "Basic Neuroscience",
+    "question": "The reticular formation is involved in?",
+    "options": ["Arousal and consciousness", "Fine motor control", "Visual processing", "Olfactory sensation"],
+    "correct": "A",
+    "explanation": "The reticular activating system regulates arousal and sleep-wake cycles."
+  },
+  {
+    "exam": "DABNM",
+    "id": 48,
+    "topic": "Basic Neuroscience",
+    "question": "What is the role of the basal forebrain?",
+    "options": ["Cholinergic innervation for memory", "Dopaminergic reward", "Serotonergic mood", "Noradrenergic alertness"],
+    "correct": "A",
+    "explanation": "Basal forebrain provides acetylcholine to cortex, important in attention and memory."
+  },
+  {
+    "exam": "DABNM",
+    "id": 49,
+    "topic": "Basic Neuroscience",
+    "question": "What is long-term potentiation (LTP)?",
+    "options": ["Synaptic weakening", "Persistent synaptic strengthening", "Axonal pruning", "Glial activation"],
+    "correct": "B",
+    "explanation": "LTP is a model for learning and memory through repeated synaptic activation."
+  },
+  {
+    "exam": "DABNM",
+    "id": 50,
+    "topic": "Basic Neuroscience",
+    "question": "The ventral tegmental area is associated with?",
+    "options": ["Reward and motivation (dopamine)", "Pain modulation", "Balance", "Vision"],
+    "correct": "A",
+    "explanation": "VTA dopamine neurons are key in reward pathways and addiction."
+  }
+]
 {
   "exam": "DABNM",
   "topic": "Basic Neuroscience",
