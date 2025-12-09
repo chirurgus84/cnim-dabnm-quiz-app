@@ -27,149 +27,19 @@
     </div>
 
     <script>
-        // Full hard-coded questions (50 DABNM + 50 CNIM for balance)
-        const allQuestions = [
-          {
-            "exam": "DABNM",
-            "id": 1,
-            "topic": "Basic Neuroscience",
-            "question": "Ependymal cells primarily line?",
-            "options": ["Blood vessels", "Ventricles", "Synapses", "Axons"],
-            "correct": "B",
-            "explanation": "Ependymal cells line the ventricles and central canal, aiding in CSF circulation."
-          },
-          {
-            "exam": "DABNM",
-            "id": 2,
-            "topic": "Basic Neuroscience",
-            "question": "Refractory period ensures?",
-            "options": ["Bidirectional propagation", "Unidirectional impulse", "Synaptic delay", "Glial activation"],
-            "correct": "B",
-            "explanation": "The refractory period prevents backward propagation, ensuring unidirectional impulse travel."
-          },
-          {
-            "exam": "DABNM",
-            "id": 3,
-            "topic": "Basic Neuroscience",
-            "question": "Insula cortex involved in?",
-            "options": ["Taste/viscera", "Motor control", "Vision", "Hearing"],
-            "correct": "A",
-            "explanation": "The insula is involved in gustation and visceral sensation."
-          },
-          // ... (all your 50 DABNM questions here – I have the list from previous, but to save space, assume pasted; if needed, ask for full)
-          {
-            "exam": "DABNM",
-            "id": 50,
-            "topic": "Basic Neuroscience",
-            "question": "The ventral tegmental area is associated with?",
-            "options": ["Reward and motivation (dopamine)", "Pain modulation", "Balance", "Vision"],
-            "correct": "A",
-            "explanation": "VTA dopamine neurons are key in reward pathways and addiction."
-          },
-          // 50 CNIM questions (practical IONM focus)
-          {
-            "exam": "CNIM",
-            "topic": "Basic Neuroscience",
-            "question": "What spinal tract is most at risk during anterior cervical discectomy?",
-            "options": ["Dorsal column", "Corticospinal", "Spinocerebellar", "Rubrospinal"],
-            "correct": "B",
-            "explanation": "The corticospinal tract carries motor signals and is monitored with MEPs to detect compression."
-          },
-          {
-            "exam": "CNIM",
-            "topic": "Basic Neuroscience",
-            "question": "Which brainstem nucleus generates Wave V in BAEP?",
-            "options": ["Cochlear nucleus", "Superior olivary complex", "Lateral lemniscus", "Inferior colliculus"],
-            "correct": "D",
-            "explanation": "Wave V originates from the inferior colliculus, critical for posterior fossa surgery monitoring."
-          },
-          {
-            "exam": "CNIM",
-            "topic": "Signal Acquisition and Processing",
-            "question": "What is the optimal electrode impedance for SSEP recording?",
-            "options": ["<1 kΩ", "<5 kΩ", "5-10 kΩ", ">10 kΩ"],
-            "correct": "B",
-            "explanation": "<5 kΩ minimizes noise and artifact in the OR environment."
-          },
-          {
-            "exam": "CNIM",
-            "topic": "Signal Acquisition and Processing",
-            "question": "How many averages are typically needed for reliable MEPs?",
-            "options": ["1-4", "5-10", "50-100", "200-500"],
-            "correct": "A",
-            "explanation": "MEPs require few averages due to high amplitude, unlike SSEPs."
-          },
-          {
-            "exam": "CNIM",
-            "topic": "Electroencephalography (EEG)",
-            "question": "What EEG montage is best for detecting focal ischemia?",
-            "options": ["Bipolar longitudinal", "Referential Cz", "Laplacian", "Average reference"],
-            "correct": "A",
-            "explanation": "Bipolar montages highlight localized slowing during vascular procedures."
-          },
-          {
-            "exam": "CNIM",
-            "topic": "Electroencephalography (EEG)",
-            "question": "What is the significance of asymmetric beta activity in EEG?",
-            "options": ["Normal variant", "Focal lesion", "Deep sleep", "Artifact"],
-            "correct": "B",
-            "explanation": "Asymmetry may indicate cortical dysfunction, requiring alert in aneurysm clipping."
-          },
-          {
-            "exam": "CNIM",
-            "topic": "Sensory Evoked Potentials",
-            "question": "What causes loss of P37 in posterior tibial SSEP during spine surgery?",
-            "options": ["Anesthesia effect", "Cord ischemia", "Peripheral stimulation failure", "All of above"],
-            "correct": "D",
-            "explanation": "P37 loss can stem from multiple causes; troubleshoot systematically."
-          },
-          {
-            "exam": "CNIM",
-            "topic": "Sensory Evoked Potentials",
-            "question": "Which stimulation site for upper limb SSEPs?",
-            "options": ["Posterior tibial", "Median nerve at wrist", "Peroneal nerve", "Sural nerve"],
-            "correct": "B",
-            "explanation": "Median nerve assesses brachial plexus and cervical cord integrity."
-          },
-          {
-            "exam": "CNIM",
-            "topic": "Motor Potentials",
-            "question": "What muscle group is recorded for L5 root monitoring?",
-            "options": ["Deltoid", "Tibialis anterior", "Gastrocnemius", "Thenar"],
-            "correct": "B",
-            "explanation": "Tibialis anterior EMG detects L4-L5 root irritation in lumbar procedures."
-          },
-          {
-            "exam": "CNIM",
-            "topic": "Motor Potentials",
-            "question": "What is the alarm criterion for MEP loss?",
-            "options": ["10% amplitude drop", "50% amplitude drop", "All-or-none response", "Latency increase >10%"],
-            "correct": "C",
-            "explanation": "MEPs are all-or-none; significant drop or loss signals potential motor deficit."
-          },
-          {
-            "exam": "CNIM",
-            "topic": "Effects of Anesthesia",
-            "question": "Which regimen is MEP-friendly?",
-            "options": ["High-dose volatiles", "TIVA with propofol/remifentanil", "Nitrous oxide 70%", "Benzodiazepines"],
-            "correct": "B",
-            "explanation": "TIVA preserves MEPs better than inhalational agents."
-          },
-          {
-            "exam": "CNIM",
-            "topic": "Effects of Anesthesia",
-            "question": "How does hypotension affect EPs?",
-            "options": ["No effect", "Amplitude decrease", "Latency decrease", "Polarity reversal"],
-            "correct": "B",
-            "explanation": "Low blood pressure reduces perfusion, depressing EP amplitudes."
-          }
-          // Add the remaining 38 CNIM questions here to reach 50 – truncated for brevity, but the code will work with this. Ask for the complete list if needed.
-        ];
-        console.log('Hard-coded questions loaded:', allQuestions.length); // Debug – should say 100
-
+        let allQuestions = [];
         let selectedExam = '';
         let currentQuestions = [];
         let userAnswers = [];
+
+        // Load from questions.json
+        fetch('./questions.json')
+            .then(res => res.json())
+            .then(data => {
+                allQuestions = data;
+                console.log('Questions loaded:', allQuestions.length);
+            })
+            .catch(error => console.error('Error loading questions:', error));
 
         function selectExam(exam) {
             selectedExam = exam;
@@ -184,7 +54,7 @@
                 .sort(() => 0.5 - Math.random()) // Shuffle
                 .slice(0, num);
             if (currentQuestions.length === 0) {
-                alert('No questions for ' + selectedExam + ' - Add some to the array.');
+                alert('No questions for ' + selectedExam + ' - Add some to questions.json.');
                 return;
             }
             userAnswers = new Array(num).fill(null);
@@ -194,26 +64,26 @@
 
             const content = document.getElementById('quizContent');
             content.innerHTML = '';
-            currentQuestions.forEach((q, i) => {
+            currentQuestions.forEach((q, index) => {
                 const div = document.createElement('div');
                 div.className = 'bg-white p-4 rounded shadow';
                 div.innerHTML = `
-                    <h3 class="font-bold">${i + 1}. ${q.question} (${q.topic})</h3>
-                    ${q.options.map((opt, j) => `
+                    <h3 class="font-bold">${index + 1}. ${q.question} (${q.topic})</h3>
+                    ${q.options.map((opt, i) => `
                         <label>
-                            <input type="radio" type="radio" name="q${i}" value="${String.fromCharCode(65 + j)}" onchange="selectAnswer(${i}, this.value)">
-                            ${String.fromCharCode(65 + j)}) ${opt}
+                            <input type="radio" name="q${index}" value="${String.fromCharCode(65 + i)}" onchange="selectAnswer(${index}, this.value)">
+                            ${String.fromCharCode(65 + i)}) ${opt}
                         </label><br>
                     `).join('')}
-                    <div id="feedback${i}" class="hidden"></div>
+                    <div id="feedback${index}" class="hidden"></div>
                 `;
                 content.appendChild(div);
             });
             document.getElementById('submitQuiz').classList.remove('hidden');
         }
 
-        function selectAnswer(i, value) {
-            userAnswers[i] = value;
+        function selectAnswer(index, value) {
+            userAnswers[index] = value;
         }
 
         function submitQuiz() {
