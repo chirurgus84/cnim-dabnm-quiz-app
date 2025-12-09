@@ -27,7 +27,7 @@
     </div>
 
     <script>
-        // Hard-coded questions for local testing (your full bank from questions.json)
+        // Full hard-coded questions from your json (for local testing – ~50 questions)
         const allQuestions = [
           {
             "exam": "DABNM",
@@ -38,86 +38,101 @@
             "correct": "B",
             "explanation": "Ependymal cells line the ventricles and central canal, aiding in CSF circulation."
           },
-          // ... (all 50 from your json here – truncated for brevity, paste the full array from my previous message or your file)
           {
             "exam": "DABNM",
-            "id": 50,
+            "id": 2,
             "topic": "Basic Neuroscience",
-            "question": "The ventral tegmental area is associated with?",
-            "options": ["Reward and motivation (dopamine)", "Pain modulation", "Balance", "Vision"],
+            "question": "Refractory period ensures?",
+            "options": ["Bidirectional propagation", "Unidirectional impulse", "Synaptic delay", "Glial activation"],
+            "correct": "B",
+            "explanation": "The refractory period prevents backward propagation, ensuring unidirectional impulse travel."
+          },
+          {
+            "exam": "DABNM",
+            "id": 3,
+            "topic": "Basic Neuroscience",
+            "question": "Insula cortex involved in?",
+            "options": ["Taste/viscera", "Motor control", "Vision", "Hearing"],
             "correct": "A",
-            "explanation": "VTA dopamine neurons are key in reward pathways and addiction."
-          }
-        ];
-        console.log('Hard-coded questions loaded:', allQuestions.length); // Debug
-
-        let selectedExam = '';
-        let currentQuestions = [];
-        let userAnswers = [];
-
-        function selectExam(exam) {
-            selectedExam = exam;
-            document.getElementById('home').classList.add('hidden');
-            document.getElementById('quizSetup').classList.remove('hidden');
-        }
-
-        function generateQuiz() {
-            const num = parseInt(document.getElementById('numQuestions').value);
-            if (allQuestions.length === 0) {
-                alert('No questions available - Add to the hard-coded array.');
-                return;
-            }
-            currentQuestions = allQuestions
-                .filter(q => q.exam === selectedExam)
-                .sort(() => 0.5 - Math.random()) // Shuffle
-                .slice(0, num);
-            if (currentQuestions.length === 0) {
-                alert('No questions for ' + selectedExam + ' - Add some to the array.');
-                return;
-            }
-            userAnswers = new Array(num).fill(null);
-
-            document.getElementById('quizSetup').classList.add('hidden');
-            document.getElementById('quiz').classList.remove('hidden');
-
-            const content = document.getElementById('quizContent');
-            content.innerHTML = '';
-            currentQuestions.forEach((q, index) => {
-                const div = document.createElement('div');
-                div.className = 'bg-white p-4 rounded shadow';
-                div.innerHTML = `
-                    <h3 class="font-bold">${index + 1}. ${q.question} (${q.topic})</h3>
-                    ${q.options.map((opt, i) => `
-                        <label>
-                            <input type="radio" name="q${index}" value="${String.fromCharCode(65 + i)}" onchange="selectAnswer(${index}, this.value)">
-                            ${String.fromCharCode(65 + i)}) ${opt}
-                        </label><br>
-                    `).join('')}
-                    <div id="feedback${index}" class="hidden"></div>
-                `;
-                content.appendChild(div);
-            });
-            document.getElementById('submitQuiz').classList.remove('hidden');
-        }
-
-        function selectAnswer(index, value) {
-            userAnswers[index] = value;
-        }
-
-        function submitQuiz() {
-            let correct = 0;
-            currentQuestions.forEach((q, i) => {
-                const feedback = document.getElementById(`feedback${i}`);
-                feedback.classList.remove('hidden');
-                if (userAnswers[i] === q.correct) {
-                    correct++;
-                    feedback.innerHTML = `<p class="text-green-600">Correct! Explanation: ${q.explanation}</p>`;
-                } else {
-                    feedback.innerHTML = `<p class="text-red-600">Incorrect. Correct: ${q.correct}. Explanation: ${q.explanation}</p>`;
-                }
-            });
-            alert(`Score: ${correct}/${currentQuestions.length} (${(correct / currentQuestions.length * 100).toFixed(2)}%)`);
-        }
-    </script>
-</body>
-</html>
+            "explanation": "The insula is involved in gustation and visceral sensation."
+          },
+          {
+            "exam": "DABNM",
+            "id": 4,
+            "topic": "Basic Neuroscience",
+            "question": "Chromatolysis post-injury affects?",
+            "options": ["Axon", "Nucleus in soma", "Dendrites", "Myelin"],
+            "correct": "B",
+            "explanation": "Chromatolysis is the dispersion of Nissl bodies in the soma after axonal injury."
+          },
+          {
+            "exam": "DABNM",
+            "id": 5,
+            "topic": "Basic Neuroscience",
+            "question": "Multiple sclerosis pathology?",
+            "options": ["Axonal transection", "Demyelination", "Neuronal death", "Glial overgrowth"],
+            "correct": "B",
+            "explanation": "MS is characterized by demyelination of axons in the CNS."
+          },
+          {
+            "exam": "DABNM",
+            "id": 6,
+            "topic": "Basic Neuroscience",
+            "question": "Pons contains tracts for?",
+            "options": ["Cranial nerves V-VIII", "Limbic emotions", "Thalamic relay", "Cortical association"],
+            "correct": "A",
+            "explanation": "The pons houses nuclei for cranial nerves V-VIII."
+          },
+          {
+            "exam": "DABNM",
+            "id": 7,
+            "topic": "Basic Neuroscience",
+            "question": "Hebbian theory states?",
+            "options": ["Cells that fire together wire together", "Isolation strengthens synapses", "Stress prunes connections", "Rest rebuilds neurons"],
+            "correct": "A",
+            "explanation": "Hebb's rule describes synaptic strengthening through co-activation."
+          },
+          {
+            "exam": "DABNM",
+            "id": 8,
+            "topic": "Basic Neuroscience",
+            "question": "The ascending fibers of the cuneate nucleus and gracilis nucleus cross over in the medulla to form what structure?",
+            "options": ["Internal capsule", "Lateral lemniscus", "Medial lemniscus", "Superior colliculus"],
+            "correct": "C",
+            "explanation": "The medial lemniscus is formed by decussating fibers from gracilis and cuneate nuclei."
+          },
+          {
+            "exam": "DABNM",
+            "id": 9,
+            "topic": "Basic Neuroscience",
+            "question": "What is the primary function of the basal ganglia?",
+            "options": ["Sensory processing", "Motor control and learning", "Memory storage", "Visual perception"],
+            "correct": "B",
+            "explanation": "Basal ganglia are key for motor control, habit formation, and reward."
+          },
+          {
+            "exam": "DABNM",
+            "id": 10,
+            "topic": "Basic Neuroscience",
+            "question": "Which structure connects the two cerebral hemispheres?",
+            "options": ["Thalamus", "Corpus callosum", "Hypothalamus", "Amygdala"],
+            "correct": "B",
+            "explanation": "The corpus callosum is the major commissure connecting hemispheres."
+          },
+          {
+            "exam": "DABNM",
+            "id": 11,
+            "topic": "Basic Neuroscience",
+            "question": "The myelin sheath is produced by which cells in the CNS?",
+            "options": ["Astrocytes", "Oligodendrocytes", "Microglia", "Schwann cells"],
+            "correct": "B",
+            "explanation": "Oligodendrocytes myelinate axons in the CNS; Schwann in PNS."
+          },
+          {
+            "exam": "DABNM",
+            "id": 12,
+            "topic": "Basic Neuroscience",
+            "question": "What is the resting membrane potential of a typical neuron?",
+            "options": ["-70 mV", "+40 mV", "-90 mV", "0 mV"],
+            "correct": "A",
+            "explanation": "Typical resting potential is -70 mV due to ion gradients
