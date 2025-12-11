@@ -32,14 +32,22 @@
         let currentQuestions = [];
         let userAnswers = [];
 
-        // Load from questions.json
+        // Load from questions.json with debug
         fetch('./questions.json')
             .then(res => res.json())
             .then(data => {
                 allQuestions = data;
                 console.log('Questions loaded:', allQuestions.length);
+                if (allQuestions.length > 0) {
+                    console.log('First question exam:', allQuestions[0].exam);
+                } else {
+                    console.log('JSON loaded but empty array.');
+                }
             })
-            .catch(error => console.error('Error loading questions:', error));
+            .catch(error => {
+                console.error('Error loading questions:', error);
+                alert('Failed to load questions.json: ' + error.message);
+            });
 
         function selectExam(exam) {
             selectedExam = exam;
@@ -54,7 +62,7 @@
                 .sort(() => 0.5 - Math.random()) // Shuffle
                 .slice(0, num);
             if (currentQuestions.length === 0) {
-                alert('No questions for ' + selectedExam + ' - Add some to questions.json.');
+                alert('No questions for ' + selectedExam + ' - Check console for load info.');
                 return;
             }
             userAnswers = new Array(num).fill(null);
