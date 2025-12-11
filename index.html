@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CNIM & DABNM Prep App</title>
+    <title>UWorld-Style CNIM & DABNM Exam Prep</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 font-sans">
@@ -16,30 +16,73 @@
         </div>
         <div id="quizSetup" class="space-y-6 hidden">
             <h2 class="text-2xl font-semibold mb-4">Customize Quiz</h2>
-            <div id="topics"><p>Topics coming soon. Using all for now.</p></div>
-            <input id="numQuestions" type="number" value="15" class="border p-2">
-            <button onclick="generateQuiz()" class="bg-green-500 text-white px-4 py-2 rounded">Start Quiz</button>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="topics">
+                <label class="flex items-center"><input type="checkbox" value="Basic Neuroscience" checked class="mr-2"> Basic Neuroscience</label>
+                <label class="flex items-center"><input type="checkbox" value="Signal Acquisition and Processing" checked class="mr-2"> Signal Acquisition and Processing</label>
+                <label class="flex items-center"><input type="checkbox" value="Electroencephalography (EEG)" checked class="mr-2"> Electroencephalography (EEG)</label>
+                <label class="flex items-center"><input type="checkbox" value="Sensory Evoked Potentials" checked class="mr-2"> Sensory Evoked Potentials</label>
+                <label class="flex items-center"><input type="checkbox" value="Motor Potentials" checked class="mr-2"> Motor Potentials</label>
+                <label class="flex items-center"><input type="checkbox" value="Effects of Anesthesia" checked class="mr-2"> Effects of Anesthesia</label>
+            </div>
+            <input id="numQuestions" type="number" value="15" class="border p-2 w-full">
+            <label class="flex items-center"><input type="checkbox" id="timedMode" class="mr-2"> Timed Mode</label>
+            <button onclick="generateQuiz(false)" class="bg-green-500 text-white px-4 py-2 rounded">Start Custom Quiz</button>
+            <button onclick="generateQuiz(true)" class="bg-purple-500 text-white px-4 py-2 rounded">Full Mock Exam</button>
         </div>
         <div id="quiz" class="space-y-6 hidden">
-            <div id="quizContent"></div>
+            <h3 id="quizID" class="text-xl font-bold"></h3>
+            <div id="timer" class="text-red-600 font-bold hidden">Time Left: <span id="timeLeft"></span></div>
+            <div id="quizContent" class="space-y-4"></div>
             <button id="submitQuiz" onclick="submitQuiz()" class="bg-blue-500 text-white px-4 py-2 rounded hidden">Submit</button>
+        </div>
+        <div id="progress" class="space-y-6 hidden">
+            <h2 class="text-2xl font-semibold mb-4">Progress Explorer</h2>
+            <table class="w-full border-collapse border border-gray-300">
+                <thead>
+                    <tr>
+                        <th class="border p-2">Topic</th>
+                        <th class="border p-2">Correct %</th>
+                    </tr>
+                </thead>
+                <tbody id="progressTable"></tbody>
+            </table>
+            <p id="totalPercent" class="font-bold"></p>
+            <ul id="weakTopics" class="list-disc pl-5"></ul>
+            <button onclick="backToHome()" class="bg-gray-500 text-white px-4 py-2 rounded">Back</button>
         </div>
     </div>
 
     <script>
-        let allQuestions = [];
+        // Hard-coded questions (fallback if needed – but we'll use json later)
+        const allQuestions = [
+          // Your 50 DABNM questions here (paste from previous full list)
+          {
+            "exam": "DABNM",
+            "topic": "Basic Neuroscience",
+            "question": "Ependymal cells primarily line?",
+            "options": ["Blood vessels", "Ventricles", "Synapses", "Axons"],
+            "correct": "B",
+            "explanation": "Ependymal cells line the ventricles and central canal, aiding in CSF circulation."
+          },
+          // ... (add the full 50 DABNM)
+          // 50 CNIM
+          {
+            "exam": "CNIM",
+            "topic": "Basic Neuroscience",
+            "question": "What is the primary pathway for proprioception and fine touch in the spinal cord?",
+            "options": ["Spinothalamic tract", "Dorsal column-medial lemniscus pathway", "Corticospinal tract", "Vestibulospinal tract"],
+            "correct": "B",
+            "explanation": "The dorsal column-medial lemniscus pathway carries proprioception and fine touch sensations, monitored via SSEPs in IONM."
+          },
+          // ... (add the full 50 CNIM from previous)
+        ];
+
         let selectedExam = '';
         let currentQuestions = [];
         let userAnswers = [];
-
-        // Load from questions.json
-        fetch('./questions.json')
-            .then(res => res.json())
-            .then(data => {
-                allQuestions = data;
-                console.log('Questions loaded:', allQuestions.length);
-            })
-            .catch(error => console.error('Error loading questions:', error));
+        let quizID = '';
+        let timerInterval;
+        let progress = localStorage.getItem('progress') ? JSON.parse(localStorage.getItem('progress')) : {};
 
         function selectExam(exam) {
             selectedExam = exam;
@@ -47,17 +90,25 @@
             document.getElementById('quizSetup').classList.remove('hidden');
         }
 
-        function generateQuiz() {
-            const num = parseInt(document.getElementById('numQuestions').value);
+        function generateQuiz(isMock) {
+            quizID = 'Quiz-' + new Date().toISOString().slice(0,10) + '-' + Math.random().toString(36).slice(2,5).toUpperCase();
+            document.getElementById('quizID').innerHTML = quizID;
+
+            let num = isMock ? 100 : parseInt(document.getElementById('numQuestions').value);
+            let selectedTopics = Array.from(document.querySelectorAll('#topics input:checked')).map(input => input.value);
             let filtered = allQuestions.filter(q => q.exam === selectedExam);
-            currentQuestions = [];
-            // Add diversity: Pull proportionally if possible
-            if (filtered.length >= num) {
-                filtered = filtered.sort(() => 0.5 - Math.random());
-                currentQuestions = filtered.slice(0, num);
+            if (selectedTopics.length > 0 && selectedTopics.length < 6) {
+                filtered = filtered.filter(q => selectedTopics.includes(q.topic));
+            }
+            // Ratios if all selected and >50
+            if (selectedTopics.length === 6 && num > 50) {
+                currentQuestions = getRatioQuestions(filtered, num, selectedExam);
             } else {
-                currentQuestions = filtered.sort(() => 0.5 - Math.random());
-                alert('Only ' + filtered.length + ' questions available for ' + selectedExam + '. Showing all.');
+                currentQuestions = filtered.sort(() => 0.5 - Math.random()).slice(0, num);
+            }
+            if (currentQuestions.length === 0) {
+                alert('No questions available.');
+                return;
             }
             userAnswers = new Array(currentQuestions.length).fill(null);
 
@@ -66,41 +117,110 @@
 
             const content = document.getElementById('quizContent');
             content.innerHTML = '';
-            currentQuestions.forEach((q, index) => {
+            currentQuestions.forEach((q, i) => {
                 const div = document.createElement('div');
                 div.className = 'bg-white p-4 rounded shadow';
                 div.innerHTML = `
-                    <h3 class="font-bold">${index + 1}. ${q.question} (${q.topic})</h3>
-                    ${q.options.map((opt, i) => `
+                    <h3 class="font-bold">${i + 1}. ${q.question} (${q.topic})</h3>
+                    ${q.options.map((opt, j) => `
                         <label>
-                            <input type="radio" name="q${index}" value="${String.fromCharCode(65 + i)}" onchange="selectAnswer(${index}, this.value)">
-                            ${String.fromCharCode(65 + i)}) ${opt}
+                            <input type="radio" name="q${i}" value="${String.fromCharCode(65 + j)}" onchange="selectAnswer(${i}, this.value)">
+                            ${String.fromCharCode(65 + j)}) ${opt}
                         </label><br>
                     `).join('')}
-                    <div id="feedback${index}" class="hidden"></div>
+                    <div id="feedback${i}" class="hidden"></div>
                 `;
                 content.appendChild(div);
             });
             document.getElementById('submitQuiz').classList.remove('hidden');
+
+            if (document.getElementById('timedMode').checked || isMock) {
+                let time = isMock ? 120 * 60 : 2 * 60 * num; // Seconds
+                document.getElementById('timer').classList.remove('hidden');
+                timerInterval = setInterval(() => {
+                    time--;
+                    document.getElementById('timeLeft').innerText = `${Math.floor(time / 60)}:${time % 60 < 10 ? '0' : ''}${time % 60}`;
+                    if (time <= 0) {
+                        clearInterval(timerInterval);
+                        submitQuiz();
+                    }
+                }, 1000);
+            }
         }
 
-        function selectAnswer(index, value) {
-            userAnswers[index] = value;
+        function getRatioQuestions(filtered, num, exam) {
+            const ratios = exam === 'DABNM' ? {
+                "Basic Neuroscience": 0.276,
+                "Signal Acquisition and Processing": 0.048,
+                "Electroencephalography (EEG)": 0.096,
+                "Sensory Evoked Potentials": 0.236,
+                "Motor Potentials": 0.244,
+                "Effects of Anesthesia": 0.1
+            } : {
+                "Basic Neuroscience": 0.25,
+                "Signal Acquisition and Processing": 0.1,
+                "Electroencephalography (EEG)": 0.1,
+                "Sensory Evoked Potentials": 0.2,
+                "Motor Potentials": 0.2,
+                "Effects of Anesthesia": 0.1,
+                "Surgical Procedures and Patient Safety": 0.05
+            };
+            let currentQuestions = [];
+            for (let t in ratios) {
+                const topicQ = filtered.filter(q => q.topic === t).sort(() => 0.5 - Math.random()).slice(0, Math.round(num * ratios[t]));
+                currentQuestions = currentQuestions.concat(topicQ);
+            }
+            return currentQuestions;
+        }
+
+        function selectAnswer(i, value) {
+            userAnswers[i] = value;
         }
 
         function submitQuiz() {
+            clearInterval(timerInterval);
             let correct = 0;
+            let topicScores = {};
             currentQuestions.forEach((q, i) => {
+                if (!topicScores[q.topic]) topicScores[q.topic] = {correct: 0, total: 0};
+                topicScores[q.topic].total++;
                 const feedback = document.getElementById(`feedback${i}`);
                 feedback.classList.remove('hidden');
                 if (userAnswers[i] === q.correct) {
                     correct++;
+                    topicScores[q.topic].correct++;
                     feedback.innerHTML = `<p class="text-green-600">Correct! Explanation: ${q.explanation}</p>`;
                 } else {
                     feedback.innerHTML = `<p class="text-red-600">Incorrect. Correct: ${q.correct}. Explanation: ${q.explanation}</p>`;
                 }
             });
             alert(`Score: ${correct}/${currentQuestions.length} (${(correct / currentQuestions.length * 100).toFixed(2)}%)`);
+            showProgress(topicScores, correct / currentQuestions.length * 100);
+            localStorage.setItem('progress', JSON.stringify(progress));
+        }
+
+        function showProgress(topicScores, totalPercent) {
+            document.getElementById('quiz').classList.add('hidden');
+            document.getElementById('progress').classList.remove('hidden');
+            const table = document.getElementById('progressTable');
+            table.innerHTML = '';
+            let weak = [];
+            for (let t in topicScores) {
+                const pct = (topicScores[t].correct / topicScores[t].total * 100).toFixed(2);
+                table.innerHTML += `<tr><td class="border p-2">${t}</td><td class="border p-2">${pct}%</td></tr>`;
+                if (pct < 60) weak.push({topic: t, pct: pct});
+            }
+            document.getElementById('totalPercent').innerHTML = 'Total %: ' + totalPercent.toFixed(2);
+            const weakList = document.getElementById('weakTopics');
+            weakList.innerHTML = '';
+            weak.sort((a, b) => a.pct - b.pct).forEach(w => {
+                weakList.innerHTML += `<li>${w.topic}: ${w.pct}% ${w.pct < 40 ? '⚠️' : ''}</li>`;
+            });
+        }
+
+        function backToHome() {
+            document.getElementById('progress').classList.add('hidden');
+            document.getElementById('home').classList.remove('hidden');
         }
     </script>
 </body>
