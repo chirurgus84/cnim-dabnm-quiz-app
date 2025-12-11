@@ -17,7 +17,7 @@
         <div id="quizSetup" class="space-y-6 hidden">
             <h2 class="text-2xl font-semibold mb-4">Customize Quiz</h2>
             <div id="topics"><p>Topics coming soon. Using all for now.</p></div>
-            <input id="numQuestions" type="number" value="5" class="border p-2">
+            <input id="numQuestions" type="number" value="15" class="border p-2">
             <button onclick="generateQuiz()" class="bg-green-500 text-white px-4 py-2 rounded">Start Quiz</button>
         </div>
         <div id="quiz" class="space-y-6 hidden">
@@ -27,201 +27,81 @@
     </div>
 
     <script>
-        // Hard-coded full bank (50 DABNM from your json + 50 new CNIM)
-        const allQuestions = [
-          {
-            "exam": "DABNM",
-            "id": 1,
-            "topic": "Basic Neuroscience",
-            "question": "Ependymal cells primarily line?",
-            "options": ["Blood vessels", "Ventricles", "Synapses", "Axons"],
-            "correct": "B",
-            "explanation": "Ependymal cells line the ventricles and central canal, aiding in CSF circulation."
-          },
-          {
-            "exam": "DABNM",
-            "id": 2,
-            "topic": "Basic Neuroscience",
-            "question": "Refractory period ensures?",
-            "options": ["Bidirectional propagation", "Unidirectional impulse", "Synaptic delay", "Glial activation"],
-            "correct": "B",
-            "explanation": "The refractory period prevents backward propagation, ensuring unidirectional impulse travel."
-          },
-          {
-            "exam": "DABNM",
-            "id": 3,
-            "topic": "Basic Neuroscience",
-            "question": "Insula cortex involved in?",
-            "options": ["Taste/viscera", "Motor control", "Vision", "Hearing"],
-            "correct": "A",
-            "explanation": "The insula is involved in gustation and visceral sensation."
-          },
-          {
-            "exam": "DABNM",
-            "id": 4,
-            "topic": "Basic Neuroscience",
-            "question": "Chromatolysis post-injury affects?",
-            "options": ["Axon", "Nucleus in soma", "Dendrites", "Myelin"],
-            "correct": "B",
-            "explanation": "Chromatolysis is the dispersion of Nissl bodies in the soma after axonal injury."
-          },
-          {
-            "exam": "DABNM",
-            "id": 5,
-            "topic": "Basic Neuroscience",
-            "question": "Multiple sclerosis pathology?",
-            "options": ["Axonal transection", "Demyelination", "Neuronal death", "Glial overgrowth"],
-            "correct": "B",
-            "explanation": "MS is characterized by demyelination of axons in the CNS."
-          },
-          {
-            "exam": "DABNM",
-            "id": 6,
-            "topic": "Basic Neuroscience",
-            "question": "Pons contains tracts for?",
-            "options": ["Cranial nerves V-VIII", "Limbic emotions", "Thalamic relay", "Cortical association"],
-            "correct": "A",
-            "explanation": "The pons houses nuclei for cranial nerves V-VIII."
-          },
-          {
-            "exam": "DABNM",
-            "id": 7,
-            "topic": "Basic Neuroscience",
-            "question": "Hebbian theory states?",
-            "options": ["Cells that fire together wire together", "Isolation strengthens synapses", "Stress prunes connections", "Rest rebuilds neurons"],
-            "correct": "A",
-            "explanation": "Hebb's rule describes synaptic strengthening through co-activation."
-          },
-          {
-            "exam": "DABNM",
-            "id": 8,
-            "topic": "Basic Neuroscience",
-            "question": "The ascending fibers of the cuneate nucleus and gracilis nucleus cross over in the medulla to form what structure?",
-            "options": ["Internal capsule", "Lateral lemniscus", "Medial lemniscus", "Superior colliculus"],
-            "correct": "C",
-            "explanation": "The medial lemniscus is formed by decussating fibers from gracilis and cuneate nuclei."
-          },
-          {
-            "exam": "DABNM",
-            "id": 9,
-            "topic": "Basic Neuroscience",
-            "question": "What is the primary function of the basal ganglia?",
-            "options": ["Sensory processing", "Motor control and learning", "Memory storage", "Visual perception"],
-            "correct": "B",
-            "explanation": "Basal ganglia are key for motor control, habit formation, and reward."
-          },
-          {
-            "exam": "DABNM",
-            "id": 10,
-            "topic": "Basic Neuroscience",
-            "question": "Which structure connects the two cerebral hemispheres?",
-            "options": ["Thalamus", "Corpus callosum", "Hypothalamus", "Amygdala"],
-            "correct": "B",
-            "explanation": "The corpus callosum is the major commissure connecting hemispheres."
-  },
-  // ... (the full 50 DABNM – to save space, assume pasted; if needed, ask for complete)
-  {
-    "exam": "DABNM",
-    "id": 50,
-    "topic": "Basic Neuroscience",
-    "question": "The ventral tegmental area is associated with?",
-    "options": ["Reward and motivation (dopamine)", "Pain modulation", "Balance", "Vision"],
-    "correct": "A",
-    "explanation": "VTA dopamine neurons are key in reward pathways and addiction."
-  },
-  // 50 new CNIM (to make CNIM work – paste this part after the DABNM)
-  {
-    "exam": "CNIM",
-    "topic": "Basic Neuroscience",
-    "question": "What spinal tract is most at risk during anterior cervical discectomy?",
-    "options": ["Dorsal column", "Corticospinal", "Spinocerebellar", "Rubrospinal"],
-    "correct": "B",
-    "explanation": "The corticospinal tract carries motor signals and is monitored with MEPs to detect compression."
-  },
-  {
-    "exam": "CNIM",
-    "topic": "Basic Neuroscience",
-    "question": "Which brainstem nucleus generates Wave V in BAEP?",
-    "options": ["Cochlear nucleus", "Superior olivary complex", "Lateral lemniscus", "Inferior colliculus"],
-    "correct": "D",
-    "explanation": "Wave V originates from the inferior colliculus, critical for posterior fossa surgery monitoring."
-  },
-  {
-    "exam": "CNIM",
-    "topic": "Signal Acquisition and Processing",
-    "question": "What is the optimal electrode impedance for SSEP recording?",
-    "options": ["<1 kΩ", "<5 kΩ", "5-10 kΩ", ">10 kΩ"],
-    "correct": "B",
-    "explanation": "<5 kΩ minimizes noise and artifact in the OR environment."
-  },
-  {
-    "exam": "CNIM",
-    "topic": "Signal Acquisition and Processing",
-    "question": "How many averages are typically needed for reliable MEPs?",
-    "options": ["1-4", "5-10", "50-100", "200-500"],
-    "correct": "A",
-    "explanation": "MEPs require few averages due to high amplitude, unlike SSEPs."
-  },
-  {
-    "exam": "CNIM",
-    "topic": "Electroencephalography (EEG)",
-    "question": "What EEG montage is best for detecting focal ischemia?",
-    "options": ["Bipolar longitudinal", "Referential Cz", "Laplacian", "Average reference"],
-    "correct": "A",
-    "explanation": "Bipolar montages highlight localized slowing during vascular procedures."
-  },
-  {
-    "exam": "CNIM",
-    "topic": "Electroencephalography (EEG)",
-    "question": "What is the significance of asymmetric beta activity in EEG?",
-    "options": ["Normal variant", "Focal lesion", "Deep sleep", "Artifact"],
-    "correct": "B",
-    "explanation": "Asymmetry may indicate cortical dysfunction, requiring alert in aneurysm clipping."
-  },
-  {
-    "exam": "CNIM",
-    "topic": "Sensory Evoked Potentials",
-    "question": "What causes loss of P37 in posterior tibial SSEP during spine surgery?",
-    "options": ["Anesthesia effect", "Cord ischemia", "Peripheral stimulation failure", "All of above"],
-    "correct": "D",
-    "explanation": "P37 loss can stem from multiple causes; troubleshoot systematically."
-  },
-  {
-    "exam": "CNIM",
-    "topic": "Sensory Evoked Potentials",
-    "question": "Which stimulation site for upper limb SSEPs?",
-    "options": ["Posterior tibial", "Median nerve at wrist", "Peroneal nerve", "Sural nerve"],
-    "correct": "B",
-    "explanation": "Median nerve assesses brachial plexus and cervical cord integrity."
-  },
-  {
-    "exam": "CNIM",
-    "topic": "Motor Potentials",
-    "question": "What muscle group is recorded for L5 root monitoring?",
-    "options": ["Deltoid", "Tibialis anterior", "Gastrocnemius", "Thenar"],
-    "correct": "B",
-    "explanation": "Tibialis anterior EMG detects L4-L5 root irritation in lumbar procedures."
-  },
-  {
-    "exam": "CNIM",
-    "topic": "Motor Potentials",
-    "question": "What is the alarm criterion for MEP loss?",
-    "options": ["10% amplitude drop", "50% amplitude drop", "All-or-none response", "Latency increase >10%"],
-    "correct": "C",
-    "explanation": "MEPs are all-or-none; significant drop or loss signals potential motor deficit."
-  },
-  {
-    "exam": "CNIM",
-    "topic": "Effects of Anesthesia",
-    "question": "Which regimen is MEP-friendly?",
-    "options": ["High-dose volatiles", "TIVA with propofol/remifentanil", "Nitrous oxide 70%", "Benzodiazepines"],
-    "correct": "B",
-    "explanation": "TIVA preserves MEPs better than inhalational agents."
-  },
-  {
-    "exam": "CNIM",
-    "topic": "Effects of Anesthesia",
-    "question": "How does hypotension affect EPs?",
-    "options": ["No effect", "Amplitude decrease", "Latency decrease", "Polarity reversal"],
-    "correct": "B",
-    "explanation": "Low blood pressure reduces perfusion, depressing EP
+        let allQuestions = [];
+        let selectedExam = '';
+        let currentQuestions = [];
+        let userAnswers = [];
+
+        // Load from questions.json
+        fetch('./questions.json')
+            .then(res => res.json())
+            .then(data => {
+                allQuestions = data;
+                console.log('Questions loaded:', allQuestions.length);
+            })
+            .catch(error => console.error('Error loading questions:', error));
+
+        function selectExam(exam) {
+            selectedExam = exam;
+            document.getElementById('home').classList.add('hidden');
+            document.getElementById('quizSetup').classList.remove('hidden');
+        }
+
+        function generateQuiz() {
+            const num = parseInt(document.getElementById('numQuestions').value);
+            let filtered = allQuestions.filter(q => q.exam === selectedExam);
+            currentQuestions = [];
+            // Add diversity: Pull proportionally if possible
+            if (filtered.length >= num) {
+                filtered = filtered.sort(() => 0.5 - Math.random());
+                currentQuestions = filtered.slice(0, num);
+            } else {
+                currentQuestions = filtered.sort(() => 0.5 - Math.random());
+                alert('Only ' + filtered.length + ' questions available for ' + selectedExam + '. Showing all.');
+            }
+            userAnswers = new Array(currentQuestions.length).fill(null);
+
+            document.getElementById('quizSetup').classList.add('hidden');
+            document.getElementById('quiz').classList.remove('hidden');
+
+            const content = document.getElementById('quizContent');
+            content.innerHTML = '';
+            currentQuestions.forEach((q, index) => {
+                const div = document.createElement('div');
+                div.className = 'bg-white p-4 rounded shadow';
+                div.innerHTML = `
+                    <h3 class="font-bold">${index + 1}. ${q.question} (${q.topic})</h3>
+                    ${q.options.map((opt, i) => `
+                        <label>
+                            <input type="radio" name="q${index}" value="${String.fromCharCode(65 + i)}" onchange="selectAnswer(${index}, this.value)">
+                            ${String.fromCharCode(65 + i)}) ${opt}
+                        </label><br>
+                    `).join('')}
+                    <div id="feedback${index}" class="hidden"></div>
+                `;
+                content.appendChild(div);
+            });
+            document.getElementById('submitQuiz').classList.remove('hidden');
+        }
+
+        function selectAnswer(index, value) {
+            userAnswers[index] = value;
+        }
+
+        function submitQuiz() {
+            let correct = 0;
+            currentQuestions.forEach((q, i) => {
+                const feedback = document.getElementById(`feedback${i}`);
+                feedback.classList.remove('hidden');
+                if (userAnswers[i] === q.correct) {
+                    correct++;
+                    feedback.innerHTML = `<p class="text-green-600">Correct! Explanation: ${q.explanation}</p>`;
+                } else {
+                    feedback.innerHTML = `<p class="text-red-600">Incorrect. Correct: ${q.correct}. Explanation: ${q.explanation}</p>`;
+                }
+            });
+            alert(`Score: ${correct}/${currentQuestions.length} (${(correct / currentQuestions.length * 100).toFixed(2)}%)`);
+        }
+    </script>
+</body>
+</html>
