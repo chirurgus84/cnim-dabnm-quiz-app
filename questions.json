@@ -4622,7 +4622,7 @@
 {
 "QID": 421,
 "Topic": "Motor",
-"Question": "During thoracoabdominal aortic aneurysm repair with multimodal intraoperative neuromonitoring, transcranial motor evoked potentials (MEPs) from both tibialis anterior muscles abruptly decrease by 80% in amplitude after segmental artery clamping, while posterior tibial somatosensory evoked potentials (SEPs) remain within 10% of baseline. Mean arterial pressure is unchanged at 80 mmHg. Which \"Explanation\" best accounts for the earlier MEP change compared with SEP change?",
+"Question": "During thoracoabdominal aortic aneurysm repair with multimodal intraoperative neuromonitoring, transcranial motor evoked potentials (MEPs) from both tibialis anterior muscles abruptly decrease by 80% in amplitude after segmental artery clamping, while posterior tibial somatosensory evoked potentials (SEPs) remain within 10% of baseline. Mean arterial pressure is unchanged at 80 mmHg. Which Explanation best accounts for the earlier MEP change compared with SEP change?",
 "OptionA": "Posterior column fibers are more vulnerable to ischemia than anterior motor tracts, so SEPs change before MEPs",
 "OptionB": "Anterior corticospinal motor tracts supplied by the anterior spinal artery are more ischemia-sensitive than dorsal column sensory pathways, so MEPs typically show changes earlier than SEPs",
 "OptionC": "MEPs are less sensitive to ischemia than SEPs, and the observed change is most likely artifact",
@@ -5150,7 +5150,7 @@
 {
 "QID": 469,
 "Topic": "SEP",
-"Question": "A 38-year-old man with Tangier disease, characterized by low HDL and ABCA1 mutations, presents with sensory neuropathy. BAEPs are normal, but posterior tibial SEPs show low-amplitude, delayed peripheral responses with relatively preserved cortical potentials. What is the most likely \"Explanation\" for the SEP findings?",
+"Question": "A 38-year-old man with Tangier disease, characterized by low HDL and ABCA1 mutations, presents with sensory neuropathy. BAEPs are normal, but posterior tibial SEPs show low-amplitude, delayed peripheral responses with relatively preserved cortical potentials. What is the most likely Explanation for the SEP findings?",
 "OptionA": "Isolated central demyelination of auditory pathways sparing peripheral nerves",
 "OptionB": "Peripheral demyelinating neuropathy from abnormal lipid metabolism causing reduced amplitude and slowed peripheral sensory conduction, with partial preservation of central SEP components",
 "OptionC": "Selective central demyelination of dorsal columns with normal peripheral conduction",
@@ -5503,12 +5503,12 @@
 "QID": 501,
 "Topic": "Basic Neuro",
 "Question": "A 62-year-old patient develops an isolated left foot drop after a right parasagittal meningioma resection. Intraoperative mapping confirmed the precentral gyrus just anterior to the central sulcus. Which cortical organization principle best explains the focal deficit, and which adjacent functional area is at greatest risk if resection extends too far anteriorly?",
-"OptionA": "SomatoTopic motor homunculus; premotor cortex involved in motor planning",
+"OptionA": "Somatotopic motor homunculus; premotor cortex involved in motor planning",
 "OptionB": "Columnar sensory organization; primary somatosensory cortex for leg",
 "OptionC": "Modular visual map; extrastriate cortex for motion perception",
 "OptionD": "Limbic circuit; anterior cingulate for affective processing",
 "CorrectAnswer": "A",
-"Explanation": "The precentral gyrus exhibits a somato"Topic" motor homunculus with leg representation in the medial parasagittal region; extending resection anteriorly risks the premotor cortex, which is critical for motor planning rather than simple execution (Husain Ch2; standard cortical anatomy texts)."
+"Explanation": "The precentral gyrus exhibits a Somatotopic motor homunculus with leg representation in the medial parasagittal region; extending resection anteriorly risks the premotor cortex, which is critical for motor planning rather than simple execution (Husain Ch2; standard cortical anatomy texts)."
 },
 {
 "QID": 502,
@@ -6041,7 +6041,7 @@
 {
 "QID": 550,
 "Topic": "Signal",
-"Question": "A monitoring system uses a high-pass filter of 30 Hz for cortical SEPs. The interpreting neurophysiologist notes that early components are attenuated and noisy. After lowering the high-pass filter to 5 Hz with the same low-pass setting, early cortical peaks become larger and better defined. What is the most likely \"Explanation\"?",
+"Question": "A monitoring system uses a high-pass filter of 30 Hz for cortical SEPs. The interpreting neurophysiologist notes that early components are attenuated and noisy. After lowering the high-pass filter to 5 Hz with the same low-pass setting, early cortical peaks become larger and better defined. What is the most likely Explanation?",
 "OptionA": "Lowering the high-pass filter allows more of the low-frequency SEP energy to pass, improving representation of the true waveform while maintaining sufficient rejection of slow drift",
 "OptionB": "Lowering the high-pass filter shortens neural conduction time",
 "OptionC": "Lowering the high-pass filter eliminates all noise from the recording",
@@ -6393,7 +6393,7 @@
 {
 "QID": 582,
 "Topic": "Signal",
-"Question": "In BAEP recording, the technologist uses a click polarity of rarefaction and notes clear Waves I–V. After switching to condensation clicks, Wave I becomes smaller and harder to identify. What is the best \"Explanation\" for this observation?",
+"Question": "In BAEP recording, the technologist uses a click polarity of rarefaction and notes clear Waves I–V. After switching to condensation clicks, Wave I becomes smaller and harder to identify. What is the best Explanation for this observation?",
 "OptionA": "Condensation clicks always abolish BAEPs",
 "OptionB": "Wave I amplitude can differ between rarefaction and condensation due to cochlear and auditory nerve mechanics; rarefaction often yields a larger Wave I, aiding identification",
 "OptionC": "Condensation clicks double the latency of all BAEP peaks",
@@ -7977,7 +7977,7 @@
 {
 "QID": 726,
 "Topic": "Signal",
-"Question": "An intraoperative system displays cortical SEP peaks that appear broader and delayed after a notch filter at 60 Hz is activated. The underlying data acquisition parameters (sampling, high/low-pass filters) are unchanged. What is the most plausible \"Explanation\"?",
+"Question": "An intraoperative system displays cortical SEP peaks that appear broader and delayed after a notch filter at 60 Hz is activated. The underlying data acquisition parameters (sampling, high/low-pass filters) are unchanged. What is the most plausible Explanation?",
 "OptionA": "True physiologic slowing of conduction",
 "OptionB": "Phase distortion introduced by the notch filter, altering waveform shape and apparent peak timing",
 "OptionC": "Improved neural synchrony",
@@ -9363,7 +9363,7 @@
 {
 "QID": 852,
 "Topic": "Signal",
-"Question": "A technologist is recording cortical SEPs and notices that the waveform appears broader and delayed after a notch filter at 60 Hz is activated. The underlying data acquisition parameters are unchanged. What is the most plausible \"Explanation\"?",
+"Question": "A technologist is recording cortical SEPs and notices that the waveform appears broader and delayed after a notch filter at 60 Hz is activated. The underlying data acquisition parameters are unchanged. What is the most plausible Explanation?",
 "OptionA": "True physiologic slowing of conduction",
 "OptionB": "Phase distortion introduced by the notch filter, altering waveform shape and apparent peak timing",
 "OptionC": "Improved neural synchrony",
@@ -9803,7 +9803,7 @@
 {
 "QID": 892,
 "Topic": "Signal",
-"Question": "An intraoperative system displays cortical SEP peaks that appear broader and delayed after a notch filter at 60 Hz is activated. The underlying data acquisition parameters (sampling, high/low-pass filters) are unchanged. What is the most plausible \"Explanation\"?",
+"Question": "An intraoperative system displays cortical SEP peaks that appear broader and delayed after a notch filter at 60 Hz is activated. The underlying data acquisition parameters (sampling, high/low-pass filters) are unchanged. What is the most plausible Explanation?",
 "OptionA": "True physiologic slowing of conduction",
 "OptionB": "Phase distortion introduced by the notch filter, altering waveform shape and apparent peak timing",
 "OptionC": "Improved neural synchrony",
