@@ -4622,7 +4622,7 @@
 {
 "QID": 421,
 "Topic": "Motor",
-"Question": "During thoracoabdominal aortic aneurysm repair with multimodal intraoperative neuromonitoring, transcranial motor evoked potentials (MEPs) from both tibialis anterior muscles abruptly decrease by 80% in amplitude after segmental artery clamping, while posterior tibial somatosensory evoked potentials (SEPs) remain within 10% of baseline. Mean arterial pressure is unchanged at 80 mmHg. Which "Explanation" best accounts for the earlier MEP change compared with SEP change?",
+"Question": "During thoracoabdominal aortic aneurysm repair with multimodal intraoperative neuromonitoring, transcranial motor evoked potentials (MEPs) from both tibialis anterior muscles abruptly decrease by 80% in amplitude after segmental artery clamping, while posterior tibial somatosensory evoked potentials (SEPs) remain within 10% of baseline. Mean arterial pressure is unchanged at 80 mmHg. Which \"Explanation\" best accounts for the earlier MEP change compared with SEP change?",
 "OptionA": "Posterior column fibers are more vulnerable to ischemia than anterior motor tracts, so SEPs change before MEPs",
 "OptionB": "Anterior corticospinal motor tracts supplied by the anterior spinal artery are more ischemia-sensitive than dorsal column sensory pathways, so MEPs typically show changes earlier than SEPs",
 "OptionC": "MEPs are less sensitive to ischemia than SEPs, and the observed change is most likely artifact",
