@@ -7612,15 +7612,15 @@
 "Explanation": "Lowering the low-pass filter can introduce phase shift and attenuate high-frequency components, making peaks appear broader and slightly delayed without actual changes in neural conduction time. Distractor A is incorrect because the change is due to filter phase shift, not true neural slowing."
 },
 {
-"QID": 693,
-"Topic": "Basic Neuro",
-"Question": "A 60-year-old man with a history of alcoholism presents with truncal ataxia, wide-based gait, and difficulty maintaining upright posture. Limb coordination is relatively preserved. MRI shows cerebellar atrophy predominantly in the midline. Which cerebellar region is primarily affected?",
-"OptionA": "Cerebellar hemispheres (lateral zones)",
-"OptionB": "Vermis and flocculonodular lobe",
-"OptionC": "Deep cerebellar nuclei only",
-"OptionD": "Superior cerebellar peduncle",
-"CorrectAnswer": "B",
-"Explanation": "Midline cerebellar structures, including the vermis and flocculonodular lobe, are critical for axial and gait c
+  "QID": 693,
+  "Topic": "Basic Neuro",
+  "Question": "A 45-year-old man presents with progressive limb incoordination, dysarthria, and intention tremor of the right arm. Examination shows impaired finger-to-nose and heel-to-shin testing on the right, but his gait and truncal stability are relatively preserved. MRI reveals a focal lesion in the right lateral cerebellar hemisphere. Which functional cerebellar territory is primarily involved?",
+  "OptionA": "Vestibulocerebellum (flocculonodular lobe)",
+  "OptionB": "Spinocerebellum (vermis and intermediate zones)",
+  "OptionC": "Cerebrocerebellum (lateral hemispheres)",
+  "OptionD": "Deep cerebellar nuclei only",
+  "CorrectAnswer": "C",
+  "Explanation": "The cerebrocerebellum, located in the lateral cerebellar hemispheres, coordinates distal limb movements and fine motor control; lesions here cause ipsilateral limb ataxia, dysmetria, and intention tremor with relatively preserved axial and gait stability. The vestibulocerebellum and spinocerebellum are more critical for eye movements, balance, and truncal or gait control, so they are less likely to produce isolated limb ataxia in this scenario."
 },
 {
 "QID": 694,
