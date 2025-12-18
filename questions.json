@@ -9724,15 +9724,15 @@
 "Explanation": "Lowering the low-pass filter can introduce phase shift and attenuate high-frequency components, making peaks appear broader and slightly delayed without actual changes in neural conduction time. Distractor A is incorrect because the change is due to filter phase shift, not true neural slowing."
 },
 {
-"QID": 885,
-"Topic": "Basic Neuro",
-"Question": "A 60-year-old man with a history of alcoholism presents with truncal ataxia, wide-based gait, and difficulty maintaining upright posture. Limb coordination is relatively preserved. MRI shows cerebellar atrophy predominantly in the midline. Which cerebellar region is primarily affected?",
-"OptionA": "Cerebellar hemispheres (lateral zones)",
-"OptionB": "Vermis and flocculonodular lobe",
-"OptionC": "Deep cerebellar nuclei only",
-"OptionD": "Superior cerebellar peduncle",
-"CorrectAnswer": "B",
-"Explanation": "Midline cerebellar structures, including the vermis and flocculonodular lobe, are critical for axial and gait c
+  "QID": 885,
+  "Topic": "Basic Neuro",
+  "Question": "A 58-year-old woman presents with progressive difficulty walking, characterized by a wide-based, unsteady gait and frequent falls. Examination reveals marked truncal ataxia but minimal limb incoordination. MRI shows a midline cerebellar lesion involving the vermis. Which functional pathway is most directly affected?",
+  "OptionA": "Cerebrocerebellar pathway (lateral hemispheres)",
+  "OptionB": "Spinocerebellar pathway (vermis and intermediate zones)",
+  "OptionC": "Vestibulocerebellar pathway (flocculonodular lobe)",
+  "OptionD": "Corticospinal tract",
+  "CorrectAnswer": "B",
+  "Explanation": "The spinocerebellar pathway, which runs through the vermis and intermediate cerebellar zones, is primarily responsible for axial and gait coordination. Lesions here produce truncal ataxia and a wide-based gait, while sparing limb coordination. The cerebrocerebellar and vestibulocerebellar pathways are more involved in limb coordination and balance, respectively, and the corticospinal tract is not directly involved in cerebellar ataxia."
 },
 {
 "QID": 886,
