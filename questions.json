@@ -8830,7 +8830,7 @@
 "OptionC": "About 0.003 µV per bit",
 "OptionD": "About 0.0015 µV per bit",
 "CorrectAnswer": "B",
-"Explanation": "A 16-bit ADC has 65,536 quantization levels; with a ±100 µV range (200 µV total), the resolution is approximately 200 µV / 65,536 ≈ 0.00305 µV per level? Wait, miscalc; correct is 200 µV / 65,536 ≈ 0.003 µV. However, typical clinical systems often use slightly larger ranges; in a ±1000 µV case, resolution is ~0.03 µV. (Note: exact resolution depends on the actual configured range.)[web:20][web:22]",
+"Explanation": "A 16-bit ADC has 65,536 quantization levels; with a ±100 µV range (200 µV total), the resolution is approximately 200 µV / 65,536 ≈ 0.00305 µV per level? Wait, miscalc; correct is 200 µV / 65,536 ≈ 0.003 µV. However, typical clinical systems often use slightly larger ranges; in a ±1000 µV case, resolution is ~0.03 µV. (Note: exact resolution depends on the actual configured range.)"
 },
 {
 "QID": 804,
