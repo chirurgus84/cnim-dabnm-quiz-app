@@ -10571,15 +10571,15 @@
 "Explanation": "Lowering the low-pass filter can introduce phase shift and attenuate high-frequency components, making peaks appear broader and slightly delayed without actual changes in neural conduction time. Distractor A is incorrect because the change is due to filter phase shift, not true neural slowing."
 },
 {
-"QID": 962,
-"Topic": "Basic Neuro",
-"Question": "A 60-year-old man with a history of alcoholism presents with truncal ataxia, wide-based gait, and difficulty maintaining upright posture. Limb coordination is relatively preserved. MRI shows cerebellar atrophy predominantly in the midline. Which cerebellar region is primarily affected?",
-"OptionA": "Cerebellar hemispheres (lateral zones)",
-"OptionB": "Vermis and flocculonodular lobe",
-"OptionC": "Deep cerebellar nuclei only",
-"OptionD": "Superior cerebellar peduncle",
-"CorrectAnswer": "B",
-"Explanation": "Midline cerebellar structures, including the vermis and flocculonodular lobe, are critical for axial and gait c
+  "QID": 962,
+  "Topic": "Basic Neuro",
+  "Question": "A 48-year-old woman presents with sudden onset of double vision and difficulty walking, accompanied by vertigo and nausea. Examination reveals nystagmus, ataxia, and dysarthria. MRI shows a lesion in the dorsal pons. Which cranial nerve nucleus is most likely affected?",
+  "OptionA": "Facial nucleus (CN VII)",
+  "OptionB": "Abducens nucleus (CN VI)",
+  "OptionC": "Hypoglossal nucleus (CN XII)",
+  "OptionD": "Spinal accessory nucleus (CN XI)",
+  "CorrectAnswer": "B",
+  "Explanation": "The abducens nucleus (CN VI) is located in the dorsal pons and controls lateral rectus muscle movement. Lesions here can cause horizontal gaze palsy, leading to double vision (diplopia) and may be associated with ataxia and vertigo if adjacent cerebellar pathways are involved. Other nuclei listed are not primarily responsible for these symptoms."
 },
 {
 "QID": 963,
