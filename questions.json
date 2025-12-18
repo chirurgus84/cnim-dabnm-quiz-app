@@ -10329,15 +10329,15 @@
 "Explanation": "Lowering the low-pass filter can introduce phase shift and attenuate high-frequency components, making peaks appear broader and slightly delayed without actual changes in neural conduction time. Distractor A is incorrect because the change is due to filter phase shift, not true neural slowing."
 },
 {
-"QID": 940,
-"Topic": "Basic Neuro",
-"Question": "A 60-year-old man with a history of alcoholism presents with truncal ataxia, wide-based gait, and difficulty maintaining upright posture. Limb coordination is relatively preserved. MRI shows cerebellar atrophy predominantly in the midline. Which cerebellar region is primarily affected?",
-"OptionA": "Cerebellar hemispheres (lateral zones)",
-"OptionB": "Vermis and flocculonodular lobe",
-"OptionC": "Deep cerebellar nuclei only",
-"OptionD": "Superior cerebellar peduncle",
-"CorrectAnswer": "B",
-"Explanation": "Midline cerebellar structures, including the vermis and flocculonodular lobe, are critical for axial and gait c
+  "QID": 940,
+  "Topic": "Basic Neuro",
+  "Question": "A 50-year-old man presents with acute onset of vertigo, nausea, and unsteady gait after a viral illness. Examination reveals nystagmus and ataxia, but no limb weakness or sensory deficits. MRI shows a small lesion in the flocculonodular lobe of the cerebellum. Which functional deficit is most directly attributable to this lesion?",
+  "OptionA": "Limb ataxia and dysmetria",
+  "OptionB": "Truncal ataxia and gait instability",
+  "OptionC": "Vertigo and imbalance",
+  "OptionD": "Speech dysarthria",
+  "CorrectAnswer": "C",
+  "Explanation": "The flocculonodular lobe (vestibulocerebellum) is primarily responsible for balance, eye movements, and coordination with vestibular input. Lesions here typically cause vertigo, imbalance, and gait instability, while sparing limb coordination and speech. Truncal ataxia and limb ataxia are more commonly associated with lesions in other cerebellar regions."
 },
 {
 "QID": 941,
