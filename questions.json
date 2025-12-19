@@ -10998,5 +10998,170 @@
 "OptionD": "Disconnection of cerebellum from red nucleus",
 "CorrectAnswer": "B",
 "Explanation": "Alexia without agraphia occurs when visual information from the right occipital cortex cannot reach left language regions due to splenial callosal damage; the patient can write but cannot read, including self-produced text. Distractor A is incorrect because the disconnection involves the corpus callosum, not a direct cortical–frontal pathway."
-}
+},
+  {
+    "QID": 1001,
+    "Topic": "Basic Neuro",
+    "Question": "A 48-year-old man with a history of hypertension presents with acute onset left hemiparesis, dysarthria, and rightward gaze deviation. MRI demonstrates an infarct in the right internal capsule and basal ganglia. Which vascular territory and pathway disruption best account for these pure motor deficits without sensory or visual involvement?",
+    "OptionA": "Anterior cerebral artery occlusion affecting medial frontal corticospinal fibers",
+    "OptionB": "Posterior cerebral artery occlusion involving thalamogeniculate branches",
+    "OptionC": "Middle cerebral artery superior division affecting cortical face and arm areas",
+    "OptionD": "Lacunar infarct in the posterior limb of the internal capsule disrupting densely packed corticospinal and corticobulbar tracts",
+    "CorrectAnswer": "D",
+    "Explanation": "Lacunar infarcts in the posterior limb of the internal capsule produce pure motor hemiparesis by interrupting compact corticospinal and corticobulbar fibers destined for the contralateral body and face while sparing adjacent sensory thalamocortical pathways. Distractor A is incorrect because anterior cerebral artery occlusion typically causes contralateral leg weakness with possible frontal behavioral changes."
+  },
+  {
+    "QID": 1002,
+    "Topic": "Signal",
+    "Question": "During intraoperative BAEP monitoring for microvascular decompression, Wave V latency prolongs progressively by 1.2 ms with preserved amplitude. Simultaneous 60 Hz noise contaminates all channels despite low impedances. Which intervention most effectively addresses the primary concern while secondarily mitigating electrical interference?",
+    "OptionA": "Apply a digital 60 Hz notch filter and continue monitoring without surgeon notification",
+    "OptionB": "Immediately alert the surgeon to potential cochlear nerve stretch or ischemia and move electrical equipment away from the acquisition system to reduce line noise",
+    "OptionC": "Increase stimulus rate to overwhelm the noise",
+    "OptionD": "Switch to contralateral masking only",
+    "CorrectAnswer": "B",
+    "Explanation": "Significant Wave V latency prolongation (>1 ms) represents a critical change indicating risk to the eighth nerve or brainstem auditory pathway, requiring prompt surgical feedback; concurrently relocating cautery or power sources reduces 60 Hz common-mode interference. Distractor A is incorrect because notch filters can distort latency measurements and do not address the surgical alarm criterion."
+  },
+  {
+    "QID": 1003,
+    "Topic": "EEG",
+    "Question": "A 62-year-old woman undergoing carotid endarterectomy under general anesthesia develops new left frontal delta slowing and amplitude attenuation over the left hemisphere 2 minutes after cross-clamping. Right hemisphere EEG remains symmetric. SEPs and MEPs are stable. Which interpretation and intervention are most appropriate?",
+    "OptionA": "Attribute to deepening anesthesia and increase volatile agent",
+    "OptionB": "Recognize focal slowing as evidence of hemispheric hypoperfusion and recommend immediate shunt placement or blood pressure augmentation",
+    "OptionC": "Ignore as EEG is insensitive to ischemia",
+    "OptionD": "Switch to burst suppression for neuroprotection",
+    "CorrectAnswer": "B",
+    "Explanation": "New unilateral delta slowing and amplitude reduction during carotid clamping reflect cortical ischemia in the ipsilateral hemisphere; prompt hemodynamic optimization or shunting can reverse changes and prevent infarction. Distractor A is incorrect because anesthetic effects typically cause bilateral symmetric changes."
+  },
+  {
+    "QID": 1004,
+    "Topic": "SEP",
+    "Question": "In a 34-year-old patient undergoing Chiari malformation decompression, median nerve SEPs show normal N9 and N13 but absent traveling cervical N13 and cortical N20 bilaterally after dural opening. Posterior tibial SEPs remain intact. Which localization and mechanism best explain this pattern?",
+    "OptionA": "Bilateral brachial plexus traction from positioning",
+    "OptionB": "Cervical cord ischemia from venous congestion or direct manipulation rostral to the upper limb entry zones",
+    "OptionC": "Thalamic or cortical generator dysfunction",
+    "OptionD": "Peripheral median nerve compression at the wrist",
+    "CorrectAnswer": "B",
+    "Explanation": "Absent upper extremity SEPs with preserved N9/N13 peripheral/subcortical components and intact lower extremity responses localize the lesion to the cervical cord above C5 entry but below lower limb pathways, consistent with intraoperative compromise during posterior fossa decompression. Distractor A is incorrect because brachial plexus injury would abolish N9."
+  },
+  {
+    "QID": 1005,
+    "Topic": "Motor",
+    "Question": "During resection of a recurrent cervical intramedullary ependymoma at C4–C6, transcranial MEPs from bilateral hand muscles abruptly lose complexity and amplitude drops >80% bilaterally after midline myelotomy, while upper trapezius and leg MEPs remain robust. D-wave amplitude decreases to 55% of baseline. Which prognostic implication and surgical recommendation are most appropriate?",
+    "OptionA": "Proceed aggressively as D-wave preservation >50% guarantees full recovery",
+    "OptionB": "Halt resection temporarily, irrigate with warm saline, and raise MAP, as bilateral hand MEP loss with partial D-wave preservation suggests reversible corticospinal irritation but risk of permanent deficit if progression occurs",
+    "OptionC": "Abort surgery immediately due to irreversible injury",
+    "OptionD": "Ignore muscle MEP loss as D-wave is the only reliable indicator",
+    "CorrectAnswer": "B",
+    "Explanation": "Bilateral upper extremity muscle MEP deterioration with partial D-wave preservation indicates potential reversible synaptic or segmental dysfunction; pause maneuvers and hemodynamic optimization often allow recovery, whereas further decline risks poor outcome. Distractor A is incorrect because >50% D-wave preservation predicts recovery potential but does not guarantee it without intervention."
+  },
+  {
+    "QID": 1006,
+    "Topic": "Anesthesia",
+    "Question": "A 58-year-old patient undergoing lumbar fusion receives a propofol bolus for burst suppression during pedicle subtraction osteotomy. Immediately after the bolus, MEPs from all lower extremity muscles disappear for 8 minutes despite stable TIVA infusion rate and MAP. SEPs show 30% cortical amplitude reduction. Which pharmacologic principle best explains the differential sensitivity?",
+    "OptionA": "Propofol bolus causes transient neuromuscular blockade",
+    "OptionB": "Bolus propofol produces dose-dependent depression of anterior horn motor neurons and corticospinal synaptic transmission more profoundly than thalamocortical sensory relays",
+    "OptionC": "Propofol selectively abolishes SEPs at high doses",
+    "OptionD": "The change reflects volatile agent accumulation",
+    "CorrectAnswer": "B",
+    "Explanation": "MEPs are highly sensitive to GABAergic enhancement at spinal motor neuron synapses; propofol boluses transiently eliminate muscle responses while cortical SEPs show milder, recoverable depression. Distractor C is incorrect because propofol affects MEPs far more than SEPs at typical doses."
+  },
+  {
+    "QID": 1007,
+    "Topic": "Basic Neuro",
+    "Question": "A 71-year-old man develops acute bilateral leg weakness, urinary retention, and a T10 sensory level after thoracic aortic aneurysm repair. MRI shows anterior spinal artery territory infarction. Which pathway disruption primarily accounts for the dissociated sensory sparing?",
+    "OptionA": "Selective involvement of lateral corticospinal tracts with dorsal column preservation",
+    "OptionB": "Selective ventral horn and anterolateral spinothalamic tract involvement with dorsal column sparing",
+    "OptionC": "Complete transverse myelopathy",
+    "OptionD": "Conus medullaris syndrome",
+    "CorrectAnswer": "B",
+    "Explanation": "Anterior spinal artery syndrome damages bilateral corticospinal and spinothalamic tracts in the anterior cord, producing paraplegia and loss of pain/temperature sensation below the level, while preserving proprioception and vibration carried in the intact dorsal columns. Distractor A is incorrect because lateral tracts include both motor and some sensory components, but the classic dissociation spares dorsal columns."
+  },
+  {
+    "QID": 1008,
+    "Topic": "Signal",
+    "Question": "During TcMEP monitoring, a persistent 50 Hz artifact contaminates lower extremity recordings despite balanced impedances <3 kΩ. The artifact is present in all channels, including non-stimulated references. Which source and remediation are most likely?",
+    "OptionA": "Patient movement artifact resolved by deeper paralysis",
+    "OptionB": "Line frequency interference from unshielded power cables improved by relocating equipment or using grounded isolation",
+    "OptionC": "Stimulator overload corrected by reducing intensity",
+    "OptionD": "Electrode pop artifact requiring replacement",
+    "CorrectAnswer": "B",
+    "Explanation": "Common-mode 50/60 Hz interference appears synchronously across channels when grounding or shielding is inadequate; physical separation of power sources from the acquisition system reduces pickup without distorting physiologic signals. Distractor A is incorrect because movement artifact is typically irregular and muscle-dependent."
+  },
+  {
+    "QID": 1009,
+    "Topic": "EEG",
+    "Question": "During supratentorial tumor resection under propofol-remifentanil anesthesia, frontal rhythmic beta emerges bilaterally, followed by spindle activity. No epileptiform discharges are seen. MEPs and SEPs remain stable. Which interpretation best fits this pattern?",
+    "OptionA": "Subclinical seizure requiring immediate antiepileptic administration",
+    "OptionB": "Normal anesthetic-induced fast and spindle patterns consistent with adequate surgical anesthesia depth",
+    "OptionC": "Cortical ischemia manifesting as beta activation",
+    "OptionD": "Artifact from electrocautery",
+    "CorrectAnswer": "B",
+    "Explanation": "Propofol commonly produces anterior-predominant beta followed by spindle activity mimicking sleep stages at moderate doses, reflecting reversible cortical synchronization without pathologic implication when multimodal signals are preserved. Distractor A is incorrect because true ictal patterns evolve in frequency, morphology, or field."
+  },
+  {
+    "QID": 1010,
+    "Topic": "SEP",
+    "Question": "A 45-year-old woman with multiple sclerosis undergoes median SEP testing. Erb's point N9 is normal bilaterally, cervical N13 is preserved, but cortical N20 is absent on the right with prolonged central conduction time on the left. Which pattern and clinical correlation are most consistent?",
+    "OptionA": "Bilateral peripheral neuropathy",
+    "OptionB": "Asymmetric central demyelination affecting thalamocortical radiations or primary sensory cortex",
+    "OptionC": "Brainstem lesion disrupting medial lemniscus",
+    "OptionD": "Cervical root entry zone pathology",
+    "CorrectAnswer": "B",
+    "Explanation": "Preserved peripheral and subcortical potentials with unilateral cortical absence and contralateral delay localize pathology to central somatosensory pathways rostral to the cuneate nucleus, typical of multifocal demyelination in MS. Distractor C is incorrect because brainstem lesions typically affect far-field P14 or bilateral responses."
+  },
+  {
+    "QID": 1011,
+    "Topic": "Motor",
+    "Question": "In a 28-year-old patient during tethered cord release, bulbocavernosus reflex monitoring shows abrupt loss of responses bilaterally after detethering, while lower extremity MEPs and SEPs remain present. Anal sphincter EMG is silent. Which structure and implication are most concerning?",
+    "OptionA": "Conus medullaris ischemia requiring immediate reperfusion measures",
+    "OptionB": "Sacral root irritation reversible with irrigation",
+    "OptionC": "S2–S4 ventral root or pudendal nerve compromise affecting sacral parasympathetic and sphincter function",
+    "OptionD": "Lumbar plexus traction from positioning",
+    "CorrectAnswer": "C",
+    "Explanation": "The bulbocavernosus reflex assesses S2–S4 root integrity via pudendal afferents and efferents; bilateral loss with preserved limb modalities indicates focal sacral compromise, potentially permanent if not addressed. Distractor A is incorrect because conus ischemia would typically affect lower extremity MEPs."
+  },
+  {
+    "QID": 1012,
+    "Topic": "Anesthesia",
+    "Question": "A 52-year-old patient on chronic opioids undergoes complex spine surgery with TcMEP monitoring. Baseline MEPs are low amplitude despite partial neuromuscular blockade reversal. The anesthesiologist adds low-dose ketamine to the propofol-remifentanil regimen. MEPs improve markedly within minutes. Which mechanism best accounts for this enhancement?",
+    "OptionA": "Ketamine directly stimulates anterior horn motor neurons",
+    "OptionB": "Ketamine reduces opioid-induced corticospinal depression via NMDA antagonism and facilitates descending excitatory pathways",
+    "OptionC": "Ketamine induces burst suppression beneficial for MEPs",
+    "OptionD": "Ketamine abolishes cortical SEP generation",
+    "CorrectAnswer": "B",
+    "Explanation": "Chronic opioid exposure suppresses MEP amplitudes through mu-receptor mediated inhibition; ketamine's NMDA antagonism counters this, enhancing corticospinal excitability and recruitment in opioid-tolerant patients. Distractor A is incorrect because ketamine primarily modulates supraspinal and synaptic transmission."
+  },
+  {
+    "QID": 1013,
+    "Topic": "Basic Neuro",
+    "Question": "A 39-year-old woman presents with progressive gait instability, intention tremor, and dysdiadochokinesia. MRI reveals atrophy of the superior cerebellar peduncles and cerebellar hemispheres with relative sparing of the dentate nuclei initially. Which pathway degeneration primarily drives the limb dysmetria?",
+    "OptionA": "Cerebello-thalamo-cortical outflow disruption causing delayed movement correction",
+    "OptionB": "Pontocerebellar fiber loss impairing input to Purkinje cells and subsequent inhibition of dentate output",
+    "OptionC": "Climbing fiber degeneration from inferior olive",
+    "OptionD": "Vestibulocerebellar flocculonodular involvement",
+    "CorrectAnswer": "B",
+    "Explanation": "Degeneration of middle cerebellar peduncle pontocerebellar afferents reduces excitatory drive to Purkinje cells, disinhibiting dentate nucleus and producing dysmetria through erratic cerebellar modulation of movement. Distractor A is incorrect because superior peduncle output degeneration occurs later in many cerebellar atrophies."
+  },
+  {
+    "QID": 1014,
+    "Topic": "Signal",
+    "Question": "During multimodality monitoring, sudden loss of all SEP and MEP traces occurs simultaneously across modalities with high impedance alerts on scalp electrodes. Muscle channels show preserved ECG artifact. Which cause is most likely?",
+    "OptionA": "Global ischemia abolishing all responses",
+    "OptionB": "Head reference electrode disconnection causing common-mode rejection failure across cortical/subcortical channels",
+    "OptionC": "Anesthetic fade affecting synaptic transmission",
+    "OptionD": "Stimulator battery failure",
+    "CorrectAnswer": "B",
+    "Explanation": "Loss of scalp-derived cortical potentials with preserved peripheral/muscle signals and impedance alarms points to a common recording electrode issue; disconnection of Cz or Fz reference disrupts multiple montages simultaneously. Distractor A is incorrect because global ischemia would spare peripheral responses but not typically trigger impedance alerts."
+  },
+  {
+    "QID": 1015,
+    "Topic": "EEG",
+    "Question": "A 66-year-old man with subarachnoid hemorrhage develops periodic lateralized discharges (PLEDs) over the left hemisphere on day 5. He has subtle contralateral hand twitching correlating with the discharges. Multimodal monitoring shows stable MEPs and SEPs. Which management priority best addresses the electrographic pattern?",
+    "OptionA": "Observe only as PLEDs are always benign post-ictal phenomena",
+    "OptionB": "Administer intravenous benzodiazepine or additional anti-seizure medication targeting potential ictal activity given clinical correlation",
+    "OptionC": "Induce burst suppression immediately",
+    "OptionD": "Discontinue all sedation to clarify consciousness",
+    "CorrectAnswer": "B",
+    "Explanation": "PLEDs with time-locked clinical movements represent ictal phenomena requiring aggressive treatment to prevent further neuronal injury; benzodiazepine trial often terminates both discharges and symptoms. Distractor A is incorrect because PLEDs carry seizure risk, particularly when clinically correlated."
+  }
 ]
